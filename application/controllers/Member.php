@@ -783,6 +783,142 @@ class Member extends CI_Controller {
 		redirect('member/perawatan');
 	}
 
+	public function pengajuan(){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+
+		$this->load->model('Member_model','pengajuan');
+		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan();
+
+		$data['title'] = "Data Pengajuan";
+		$this->template->load('layout/template','member/view_pengajuan',$data);
+	}
+
+	public function pengajuanAdd(){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+
+		$this->form_validation->set_rules('a', 'Nama Pengajuan','required|trim');
+		$this->form_validation->set_rules('b', 'Lokasi','required');
+		$this->form_validation->set_rules('c', 'Lokasi Rinci','required');
+		$this->form_validation->set_rules('d', 'Tanggal Pengajuan','required');
+
+
+		if($this->form_validation->run() == false){
+
+			$data['title'] = "Data Pengajuan Add";
+			$this->template->load('layout/template','member/view_pengajuan_add',$data);
+
+		}else{
+
+			$data = [
+
+				'nm_pengajuan' => $this->input->post('a'),
+				'lokasi' => $this->input->post('b'),
+				'lokasi_rinci' => $this->input->post('c'),
+				'tgl_pengajuan' => $this->input->post('d'),
+				'keterangan' => $this->input->post('e')
+
+			];
+
+			$this->db->insert('mekp_pengajuan',$data);
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">New Data added!</div>');
+			redirect('member/pengajuan');
+		}
+	}
+
+	public function pengajuanDetail($id){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+
+		$this->load->model('Member_model','pengajuan');
+		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan();
+		$data['onepengajuan'] = $this->pengajuan->getOnePengajuan($id);
+		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan($id);
+		$data['barang'] = $this->db->get('mekp_barang')->result_array();
+
+		$data['title'] = "Detail Pengajuan";
+		$this->template->load('layout/template','member/view_pengajuan_detail',$data);
+	}
+
+	public function pengajuanEdit($id){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
+
+		$this->load->model('Member_model','pengajuan');
+		$data['allpengajuan'] = $this->pengajuan->getAllpengajuan();
+		$data['onepengajuan'] = $this->pengajuan->getOnePengajuan($id);
+		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan($id);
+		$data['barang'] = $this->db->get('mekp_barang')->result_array();
+
+		$this->form_validation->set_rules('aa', 'tanggal Perbaikan','required|trim');
+		$this->form_validation->set_rules('bb', 'Kode Barang','required|trim');
+		$this->form_validation->set_rules('cc', 'Jumlah','required');
+		$this->form_validation->set_rules('xx', 'Lokasi','required');
+		$this->form_validation->set_rules('dd', 'Kebutuhan Rinci','required');
+
+		if($this->form_validation->run() == false){
+
+			$data['title'] = "Edit pengajuan";
+			$this->template->load('layout/template','member/view_pengajuan_edit',$data);
+		}else{
+
+			$data = [
+
+				'id_pengajuan' => $id,
+				'tgl_pengajuan' => $this->input->post('aa'),
+				'lokasi' => $this->input->post('xx'),
+				'kd_barang' => $this->input->post('bb'),
+				'jumlah' => $this->input->post('cc'),
+				'kebutuhan' => $this->input->post('dd'),
+				'hasil' => $this->input->post('ee')
+
+			];
+
+			$this->db->where('id_pengajuan', $this->input->post('zz'));
+			$this->db->update('mekp_pengajuan',$data);
+
+			$barang = [
+
+				'tgl_keluar' => $this->input->post('aa'),
+				'dari_ke' => $this->input->post('xx'),
+				'kd_barang' => $this->input->post('bb'),
+				'jumlah' => $this->input->post('cc'),
+				'kebutuhan' => $this->input->post('dd'),
+				'catatan' => $this->input->post('ee'),
+				'id_pengajuan' => $this->input->post('zz')
+
+			];
+			$this->db->where('id_pengajuan', $this->input->post('zz'));
+			$this->db->update('mekp_barang_keluar',$barang);
+
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data pengajuan Updated!</div>');
+			redirect('member/pengajuanEdit/'.$id);
+
+		}
+	}
+
+	public function pengajuanDelete($id = 0,$id_pengajuan = 0){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
+
+		$this->load->model('Member_model','pengajuan');
+		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan();
+		$data['onepengajuan'] = $this->pengajuan->getOnePengajuan($id);
+		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan($id);
+		//$data['barang'] = $this->db->get('mekp_barang')->result_array();
+		$this->db->delete('mekp_pengajuan',['id_pengajuan' => $id_pengajuan]);
+		//$this->db->delete('mekp_barang_keluar',['id_pengajuan' => $id_pengajuan]);
+		$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data Pengajuan deleted!</div>');
+		redirect('member/pengajuan/'.$id);
+	}
+
 	public function perbaikanAdd($id){
 		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
 
@@ -791,7 +927,7 @@ class Member extends CI_Controller {
 		$this->load->model('Member_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 		$data['oneperawatan'] = $this->perawatan->getOnePerawatan($id);
-		$data['allperbaikan'] = $this->perawatan->getAllPerbaikan($id);
+		$data['allpengajuan'] = $this->perawatan->getAllPengajuan($id);
 		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 
 		$this->form_validation->set_rules('aa', 'tanggal Perbaikan','required|trim');
@@ -855,7 +991,7 @@ class Member extends CI_Controller {
 		$this->load->model('Member_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 		$data['oneperawatan'] = $this->perawatan->getOnePerawatan($id);
-		$data['allperbaikan'] = $this->perawatan->getAllPerbaikan($id);
+		$data['allpengajuan'] = $this->perawatan->getAllPengajuan($id);
 		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 
 		$this->form_validation->set_rules('aa', 'tanggal Perbaikan','required|trim');
@@ -913,7 +1049,7 @@ class Member extends CI_Controller {
 		$this->load->model('Member_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 		$data['oneperawatan'] = $this->perawatan->getOnePerawatan($id);
-		$data['allperbaikan'] = $this->perawatan->getAllPerbaikan($id);
+		$data['allperawatan'] = $this->perawatan->getAllPerawatan($id);
 		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 		$this->db->delete('mekp_perbaikan',['id_perbaikan' => $id_perbaikan]);
 		$this->db->delete('mekp_barang_keluar',['id_perbaikan' => $id_perbaikan]);
@@ -939,7 +1075,7 @@ class Member extends CI_Controller {
 		$this->load->model('Member_model','barang');
 		$data['allba'] = $this->barang->getAllBarang();
 		//menampilkan nama barang 
-		$data['allperbaikan'] = $this->db->get('mekp_perbaikan')->result_array();
+		$data['allpengajuan'] = $this->db->get('mekp_pengajuan')->result_array();
 
 
 		$this->form_validation->set_rules('a', 'Pilih Tabel','required');

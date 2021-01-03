@@ -69,6 +69,25 @@ class Member_model extends CI_Model {
 		return $this->db->query($query)->row_array();
 	}
 
+	public function getAllPengajuan(){
+
+		$query = "SELECT a.*, b.*  FROM mekp_pengajuan a 
+		JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi ORDER BY `id_pengajuan`
+		";
+
+		return $this->db->query($query)->result_array();
+	}
+
+	public function getOnePengajuan($id){
+
+		$query = "SELECT a.*, b.*  FROM mekp_pengajuan a 
+		JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi
+		WHERE a.id_pengajuan = $id
+		";
+
+		return $this->db->query($query)->row_array();
+	}
+
 	public function getAllPerbaikan($id){
 		$query = "SELECT * FROM `mekp_perbaikan`
 		JOIN mekp_perawatan ON mekp_perbaikan.lokasi = mekp_perawatan.lokasi
