@@ -28,10 +28,17 @@
             <div class="card-body">
               <?php echo $this->session->flashdata('message'); ?>
               <div class="form-group row ml-2">
-                <label for="addNamaPer" class="col-sm-2 col-form-label">Nama Pengajuan </label>
+                <label for="addNamaPer" class="col-sm-2 col-form-label">Nama Barang </label>
                 <div class="col-sm-4">
                   <input type="text" name="a" class="form-control" id="addNamaPer" placeholder="Nama Pengajuan" value="<?php echo set_value('a');?>">
                   <?php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
+                </div>
+              </div>
+              <div class="form-group row ml-2">
+                <label for="addNamaPer" class="col-sm-2 col-form-label">Jumlah </label>
+                <div class="col-sm-4">
+                  <input type="text" name="g" class="form-control" id="addNamaPer" placeholder="Jumlah" value="<?php echo set_value('h');?>">
+                  <?php echo form_error('g', '<small class="text-danger pl-3">', '</small>');?>
                 </div>
               </div>
               <div class="form-group row ml-2">
@@ -72,6 +79,13 @@
                 <div class="col-sm-10">
                   <textarea class="form-control" name="e" id="detailUserSettAddress" rows="3" placeholder="Keterangan.." value="<?php echo set_value('f');?>"></textarea>
                   <?php echo form_error('e', '<small class="text-danger pl-3">', '</small>');?>
+                </div>
+              </div>
+              <div class="form-group row ml-2" hidden>
+                <label for="addNamaPer" class="col-sm-2 col-form-label">Status </label>
+                <div class="col-sm-4">
+                  <input value="New Request" type="text" name="f" class="form-control" id="addNamaPer" placeholder="Status" value="<?php echo set_value('g');?>">
+                  <?php echo form_error('f', '<small class="text-danger pl-3">', '</small>');?>
                 </div>
               </div>
               <!-- /.card-body -->

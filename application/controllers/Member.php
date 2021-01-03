@@ -801,10 +801,11 @@ class Member extends CI_Controller {
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 
 		$this->form_validation->set_rules('a', 'Nama Pengajuan','required|trim');
+		$this->form_validation->set_rules('g', 'Jumlah','required');
 		$this->form_validation->set_rules('b', 'Lokasi','required');
 		$this->form_validation->set_rules('c', 'Lokasi Rinci','required');
 		$this->form_validation->set_rules('d', 'Tanggal Pengajuan','required');
-
+		$this->form_validation->set_rules('e', 'New Request','required');
 
 		if($this->form_validation->run() == false){
 
@@ -816,10 +817,12 @@ class Member extends CI_Controller {
 			$data = [
 
 				'nm_pengajuan' => $this->input->post('a'),
+				'jumlah' => $this->input->post('g'),
 				'lokasi' => $this->input->post('b'),
 				'lokasi_rinci' => $this->input->post('c'),
 				'tgl_pengajuan' => $this->input->post('d'),
-				'keterangan' => $this->input->post('e')
+				'keterangan' => $this->input->post('e'),
+				'status' => $this->input->post('f')
 
 			];
 
