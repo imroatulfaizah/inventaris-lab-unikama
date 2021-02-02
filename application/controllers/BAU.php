@@ -26,6 +26,7 @@ class BAU extends CI_Controller {
 
 		$this->load->model('Bau_model','pengajuan');
 		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan();
+		//$this->db->where('status', 'Accepted By Kepala Lab');
 
 		$data['title'] = "Data Pengajuan";
 		$this->template->load('layout/template','bau/view_pengajuan',$data);
@@ -36,7 +37,7 @@ class BAU extends CI_Controller {
 
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 
-		$this->load->model('Member_model','pengajuan');
+		$this->load->model('Bau_model','pengajuan');
 		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan();
 		$data['onepengajuan'] = $this->pengajuan->getOnePengajuan($id);
 		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan($id);
@@ -47,18 +48,12 @@ class BAU extends CI_Controller {
     }
 
     public function updateStatus($id){
-        //string $status_ = "Accepted By Kepala Lab";
-        $data = [
-            // 'id_pengajuan' => $id,
-            // 'nm_pengajuan' => $this->input->post('a'),
-            // 'jumlah' => $this->input->post('a'),
-            // 'tgl_pengajuan' => $this->input->post('b'),
-            // 'lokasi' => $this->input->post('c'),
-            // 'lokasi_rinci' => $this->input->post('c'),
-            // 'keterangan' => $this->input->post('d'),
-            'status' => 'Accepted By Kepala BAU'
-        ];
+		$this->form_validation->set_rules('id_note','note','required');
 
+        $data = [       
+			'status' => 'Accepted By Kepala BAU',
+			'note' => $this->input->post('id_note')
+        ];
         $this->db->where('id_pengajuan', $id);
         $this->db->update('mekp_pengajuan',$data);
         $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data updated!</div>');

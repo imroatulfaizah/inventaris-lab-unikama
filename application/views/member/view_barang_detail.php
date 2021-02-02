@@ -85,9 +85,9 @@
               </div>
             </div>
             <div class="form-group row ml-2">
-              <label for="addEmailSetting" class="col-sm-2 col-form-label">Catatan</label>
+              <label for="addEmailSetting" class="col-sm-2 col-form-label">Spesifikasi</label>
               <div class="col-sm-10">
-                <textarea class="form-control" name="k" id="detailUserSettAddress" rows="3" placeholder="Catatan.." value="" disabled><?php echo $oneba['catatan'];?></textarea>
+                <textarea class="form-control" name="k" id="detailUserSettAddress" rows="3" placeholder="Spesifikasi.." value="" disabled><?php echo $oneba['catatan'];?></textarea>
                 <?php echo form_error('k', '<small class="text-danger pl-3">', '</small>');?>
               </div>
             </div>

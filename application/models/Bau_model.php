@@ -6,7 +6,7 @@ class Bau_model extends CI_Model {
 
 		$query = "SELECT a.*, b.*  FROM mekp_pengajuan a 
 		JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi 
-        -- WHERE a.status = 'Accepted By Kepala BAU'
+        WHERE a.status = 'Accepted By Kepala Lab' || a.status = 'Accepted By Kepala BAU'
         ORDER BY `id_pengajuan`
 		";
 

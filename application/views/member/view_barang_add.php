@@ -147,9 +147,9 @@
                     </div>
                   </div>
                   <div class="form-group row ml-2">
-                    <label for="addEmailSetting" class="col-sm-3 col-form-label">Catatan</label>
+                    <label for="addEmailSetting" class="col-sm-3 col-form-label">Spesifikasi</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" name="k" id="detailUserSettAddress" rows="3" placeholder="Catatan.." value=""><?php echo set_value('k');?></textarea>
+                      <textarea class="form-control" name="k" id="detailUserSettAddress" rows="3" placeholder="Spesifikasi.." value=""><?php echo set_value('k');?></textarea>
                       <?php echo form_error('k', '<small class="text-danger pl-3">', '</small>');?>
                     </div>
                   </div>

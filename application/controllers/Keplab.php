@@ -47,7 +47,8 @@ class Keplab extends CI_Controller {
     }
 
     public function updateStatus($id){
-        //string $status_ = "Accepted By Kepala Lab";
+		//string $status_ = "Accepted By Kepala Lab";
+		$this->form_validation->set_rules('id_note','note','required');
         $data = [
             // 'id_pengajuan' => $id,
             // 'nm_pengajuan' => $this->input->post('a'),
@@ -56,8 +57,8 @@ class Keplab extends CI_Controller {
             // 'lokasi' => $this->input->post('c'),
             // 'lokasi_rinci' => $this->input->post('c'),
             // 'keterangan' => $this->input->post('d'),
-            'status' => 'Accepted By Kepala Lab'
-
+			'status' => 'Accepted By Kepala Lab',
+			'notelab' => $this->input->post('id_note')
         ];
 
         $this->db->where('id_pengajuan', $id);
@@ -100,7 +101,6 @@ class Keplab extends CI_Controller {
 				'lokasi_rinci' => $this->input->post('cc'),
 				'keterangan' => $this->input->post('dd'),
 				'status' => $this->input->post('ee')
-
 			];
 
 			$this->db->where('id_pengajuan', $this->input->post('j'));

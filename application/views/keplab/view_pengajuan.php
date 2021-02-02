@@ -48,7 +48,13 @@
                     <td><?php echo $allper['nm_pengajuan']; ?></td>
                     <td><?php echo $allper['nm_lokasi']; ?></td>
                     <td><?php echo date('d F Y', strtotime($allper['tgl_pengajuan'])); ?></td>
-                    <td><?php echo $allper['status']; ?></td>
+                    <?php if($allper['status'] == 'Accepted By Kepala BAU'){ ?>
+                      <td style="background-color:cyan"><?php echo $allper['status']; ?></td>
+                    <?php } if ($allper['status'] == 'Accepted By Kepala Lab'){ ?>
+                      <td style="background-color:#fcf403"><?php echo $allper['status']; ?></td>
+                    <?php } if ($allper['status'] == 'New Request'){ ?>
+                      <td style="background-color:#03fcba"><?php echo $allper['status']; ?></td>
+                    <?php } ?>
                     <td>
                       <a style="margin-right:10px" href="<?php echo base_url('keplab/pengajuandetail/'). $allper['id_pengajuan'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
                       <!-- <a style="margin-right:10px" href="<?php echo base_url('member/pengajuanedit/'). $allper['id_pengajuan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a> -->

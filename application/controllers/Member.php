@@ -278,7 +278,7 @@ class Member extends CI_Controller {
 
 			$this->db->insert('mekp_merk',['nm_merk' => $this->input->post('a')]);
 
-			
+		
 			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">New Merk added!</div>');
 			redirect('member/master');
 

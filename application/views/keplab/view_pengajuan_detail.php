@@ -106,15 +106,39 @@
                             <?php echo form_error('h', '<small class="text-danger pl-3">', '</small>');?>
                           </div>
                         </div>
-                        
+                        <?php if($onepengajuan['notelab'] != null) { ?>
+                          <div class="form-group row ml-2">
+                          <label for="addNamaPer" class="col-sm-2 col-form-label">Alasan Diterima </label>
+                          <div class="col-sm-4">
+                          <input type="text" name="id_note" class="form-control" id="id_note" placeholder="Alasan diterima" value="<?php echo $onepengajuan['notelab'];?>" disabled>
+                            <?php echo form_error('id_note', '<small class="text-danger pl-3">', '</small>');?>
+                          </div>
+                        </div>
+                        <?php } else { ?>
+                          <div class="form-group row ml-2">
+                            <label for="addNamaPer" class="col-sm-2 col-form-label">Alasan Diterima </label>
+                            <div class="col-sm-4">
+                              <input type="text" name="id_note" class="form-control" id="addNamaPer" placeholder="Alasan diterima">
+                            </div>
+                          </div>
+                        <?php } ?>  
                         <!-- /.card-body -->
                         <div class="card-footer justify-content-between">
                           <a class="btn btn-info btn-sm" href="<?php echo base_url('keplab/pengajuan');?>">
                             <i class="fas fa-arrow-left"></i>&ensp;Back To Pengajuan List
                           </a>
-                          <a class="btn btn-warning float-right btn-sm" href="<?php echo base_url('keplab/updateStatus/'). $onepengajuan['id_pengajuan'];?>">
+                          <!-- <a class="btn btn-warning float-right btn-sm" href="<?php echo base_url('keplab/updateStatus/'). $onepengajuan['id_pengajuan'];?>">
                             <i class="fas fa-edit"></i>&ensp;Accepted By Kepala Lab
-                          </a>
+                          </a> -->
+                          <?php if($onepengajuan['status'] == 'Accepted By Kepala Lab'){ ?>
+                            <button type="submit" class="btn btn-warning float-right btn-sm" href="<?php echo base_url('keplab/updateStatus/'). $onepengajuan['id_pengajuan'];?> " disabled>
+                              <i class="fas fa-edit"></i>&ensp;Accepted By Kepala Lab
+                            </button>
+                          <?php } else { ?>
+                            <button type="submit" class="btn btn-warning float-right btn-sm" href="<?php echo base_url('keplab/updateStatus/'). $onepengajuan['id_pengajuan'];?>" >
+                              <i class="fas fa-edit"></i>&ensp;Accepted By Kepala Lab
+                            </button>
+                          <?php } ?>
                         </div>
                         <!-- /.card-footer -->
                       </form>
