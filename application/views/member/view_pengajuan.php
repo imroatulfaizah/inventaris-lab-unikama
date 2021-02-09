@@ -34,7 +34,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Data</th>
+                    <th scope="col">Nama Barang</th>
                     <th scope="col">Lokasi</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Status</th>

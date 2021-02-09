@@ -54,6 +54,13 @@
                           </div>
                         </div>
                         <div class="form-group row ml-2">
+                          <label for="addNamaPer" class="col-sm-2 col-form-label">Jumlah </label>
+                          <div class="col-sm-4">
+                            <input type="text" name="g" class="form-control" id="addNamaPer" placeholder="Jumlah" value="<?php echo $onepengajuan['jumlah'];?>">
+                            <?php echo form_error('g', '<small class="text-danger pl-3">', '</small>');?>
+                          </div>
+                        </div>
+                        <div class="form-group row ml-2">
                           <label for="addPasswordSett" class="col-sm-2 col-form-label">Lokasi</label>
                           <div class="col-sm-4">
                             <select name="b" id="AddKategoriPer" class="form-control">

@@ -228,7 +228,7 @@
   <div class="col-12">
     <div class="callout callout-danger">
       <h5><i class="fas fa-info"></i> Note:</h5>
-      Data Master Adalah Data Jumlah Barang
+      Data Inventaris Adalah Data Barang
     </div>
   </div>
   <!--/. Col -->

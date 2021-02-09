@@ -32,9 +32,6 @@
                   <li class="nav-item">
                     <a class="nav-link active ml-4" id="custom-tabs-one-pengajuan-tab" data-toggle="pill" href="#custom-tabs-one-pengajuan" role="tab" aria-controls="custom-tabs-one-pengajuan" aria-selected="true"><b>Data pengajuan</b></a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><b>Data Perbaikan</b></a>
-                  </li>
                 </ul>
               </div>
               <div class="card-body">
@@ -46,10 +43,17 @@
                     <div class="card-body">
                       <form class="form-horizontal" action="<?php echo base_url('member/pengajuanEdit/').$onepengajuan['id_pengajuan'];?>" method="post">
                         <div class="form-group row ml-2">
-                          <label for="addNamaPer" class="col-sm-2 col-form-label">Nama Pengajuan </label>
+                          <label for="addNamaPer" class="col-sm-2 col-form-label">Nama Barang </label>
                           <div class="col-sm-4">
                             <input type="text" name="a" class="form-control" id="addNamaPer" placeholder="Nama pengajuan" value="<?php echo $onepengajuan['nm_pengajuan'];?>" disabled>
                             <?php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
+                          </div>
+                        </div>
+                        <div class="form-group row ml-2">
+                          <label for="addNamaPer" class="col-sm-2 col-form-label">Jumlah </label>
+                          <div class="col-sm-4">
+                            <input type="text" name="g" class="form-control" id="addNamaPer" placeholder="Jumlah" value="<?php echo $onepengajuan['jumlah'];?>" disabled>
+                            <?php echo form_error('g', '<small class="text-danger pl-3">', '</small>');?>
                           </div>
                         </div>
                         <div class="form-group row ml-2">

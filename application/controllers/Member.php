@@ -994,7 +994,7 @@ class Member extends CI_Controller {
 		$this->load->model('Member_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 		$data['oneperawatan'] = $this->perawatan->getOnePerawatan($id);
-		$data['allpengajuan'] = $this->perawatan->getAllPengajuan($id);
+		$data['allperbaikan'] = $this->perawatan->getAllPerbaikan($id);
 		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 
 		$this->form_validation->set_rules('aa', 'tanggal Perbaikan','required|trim');
@@ -1079,6 +1079,8 @@ class Member extends CI_Controller {
 		$data['allba'] = $this->barang->getAllBarang();
 		//menampilkan nama barang 
 		$data['allpengajuan'] = $this->db->get('mekp_pengajuan')->result_array();
+		//menampilkan perbaikan
+		$data['allperbaikan'] = $this->db->get('mekp_perbaikan')->result_array();
 
 
 		$this->form_validation->set_rules('a', 'Pilih Tabel','required');
