@@ -89,8 +89,9 @@ class Member_model extends CI_Model {
 	}
 
 	public function getAllPerbaikan($id){
+
 		$query = "SELECT * FROM `mekp_perbaikan`
-		JOIN mekp_perawatan ON mekp_perbaikan.lokasi = mekp_perawatan.lokasi
+		inner JOIN mekp_perawatan  ON mekp_perbaikan.id_perawatan = mekp_perawatan.id_perawatan
 		WHERE `mekp_perbaikan`.`id_perawatan` = $id ORDER BY `id_perbaikan`
 		";
 

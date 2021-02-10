@@ -27,6 +27,9 @@
             <?php echo form_error('a','<div class="alert alert-danger" role="alert">','</div>'); ?>
             <?php echo $this->session->flashdata('message'); ?>
             <div>
+            <a class="btn btn-sm btn-outline-info float-right" href="<?php echo base_url('member/perawatanAdd')?>">
+                <i class="fas fa-plus"></i> Add Data
+              </a>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>

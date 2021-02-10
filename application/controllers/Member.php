@@ -859,11 +859,11 @@ class Member extends CI_Controller {
 		$data['allpengajuan'] = $this->pengajuan->getAllPengajuan($id);
 		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 
-		$this->form_validation->set_rules('aa', 'tanggal Perbaikan','required|trim');
-		$this->form_validation->set_rules('bb', 'Kode Barang','required|trim');
-		$this->form_validation->set_rules('cc', 'Jumlah','required');
-		$this->form_validation->set_rules('xx', 'Lokasi','required');
-		$this->form_validation->set_rules('dd', 'Kebutuhan Rinci','required');
+		// $this->form_validation->set_rules('aa', 'tanggal Perbaikan','required|trim');
+		// $this->form_validation->set_rules('bb', 'Kode Barang','required|trim');
+		// $this->form_validation->set_rules('cc', 'Jumlah','required');
+		// $this->form_validation->set_rules('xx', 'Lokasi','required');
+		// $this->form_validation->set_rules('dd', 'Kebutuhan Rinci','required');
 
 		if($this->form_validation->run() == false){
 
