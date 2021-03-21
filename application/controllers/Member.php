@@ -380,7 +380,7 @@ class Member extends CI_Controller {
 
 	public function barangAdd(){
 		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
-
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 		$data['kategori'] = "Data kategori";
 		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
 		$data['kondisi'] = "Data kondisi";
@@ -402,6 +402,7 @@ class Member extends CI_Controller {
 		$this->form_validation->set_rules('f', 'Kondisi','required');
 		$this->form_validation->set_rules('g', 'Jumlah','required');
 		$this->form_validation->set_rules('h', 'Tahun Pengadaan','required');
+		$this->form_validation->set_rules('l', 'Lokasi','required');
 		$this->form_validation->set_rules('i', 'Tanggal Masuk','required');
 		$this->form_validation->set_rules('j', 'Asal','required|trim');
 
@@ -445,6 +446,7 @@ class Member extends CI_Controller {
 					'kondisi' =>$this->input->post('f'),
 					'jumlah' =>$this->input->post('g'),
 					'thn_pengadaan' =>$this->input->post('h'),
+					'id_lokasi' =>$this->input->post('l'),
 					'catatan' =>$this->input->post('k'),
 
 				];
@@ -597,6 +599,8 @@ class Member extends CI_Controller {
 
 	public function barangDetail($id){
 		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+		
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 
 		$data['kategori'] = "Data kategori";
 		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
@@ -618,6 +622,8 @@ class Member extends CI_Controller {
 
 	public function barangEdit($id){
 		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+		
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 
 		$data['merk'] = "Data merk";
 		$data['merkdata'] = $this->db->get('mekp_merk')->result_array();
@@ -638,6 +644,7 @@ class Member extends CI_Controller {
 		$this->form_validation->set_rules('d', 'Kategori','required');
 		$this->form_validation->set_rules('e', 'Kondisi','required|trim');
 		$this->form_validation->set_rules('f', 'Status','required');
+		$this->form_validation->set_rules('l', 'Lokasi','required');
 		$this->form_validation->set_rules('g', 'Jumlah','required');
 		$this->form_validation->set_rules('h', 'Tahun Pengadaan','required|trim');
 
@@ -657,6 +664,7 @@ class Member extends CI_Controller {
 				'kategori' => $this->input->post('d'),
 				'kondisi' => $this->input->post('e'),
 				'status' => $this->input->post('f'),
+				'id_lokasi' => $this->input->post('l'),
 				'jumlah' => $this->input->post('g'),
 				'thn_pengadaan' => $this->input->post('h'),
 				'catatan' => $this->input->post('i')

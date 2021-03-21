@@ -85,6 +85,13 @@
               </div>
             </div>
             <div class="form-group row ml-2">
+              <label for="addPasswordSett" class="col-sm-2 col-form-label">Lokasi</label>
+              <div class="col-sm-10">
+                <input type="text" name="l" class="form-control" id="detKategoriPer" placeholder="Lokasi" value="<?php echo $oneba['nm_lokasi'];?>" disabled>
+                <?php echo form_error('l', '<small class="text-danger pl-3">', '</small>');?>
+              </div>
+            </div>
+            <div class="form-group row ml-2">
               <label for="addEmailSetting" class="col-sm-2 col-form-label">Spesifikasi</label>
               <div class="col-sm-10">
                 <textarea class="form-control" name="k" id="detailUserSettAddress" rows="3" placeholder="Spesifikasi.." value="" disabled><?php echo $oneba['catatan'];?></textarea>

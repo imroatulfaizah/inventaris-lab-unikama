@@ -17,11 +17,12 @@ class Member_model extends CI_Model {
 
 	public function getOneBarang($id){
 
-		$query = "SELECT a.*, `b`.`nm_merk`,`c`.`nm_kategori`,`d`.`nm_status`,`e`.`nm_kondisi` FROM 
+		$query = "SELECT a.*, `b`.`nm_merk`,`c`.`nm_kategori`,`d`.`nm_status`,`e`.`nm_kondisi`, `l`.`nm_lokasi` FROM 
 		`mekp_barang` `a` JOIN `mekp_merk` `b` ON `a`.`merk` = `b`.`id_merk` 
 		JOIN `mekp_kategori` `c` ON `a`.`kategori` = `c`.`id_kategori`
 		JOIN `mekp_status_barang` `d` ON `a`.`status` = `d`.`id_status`
 		JOIN `mekp_kondisi` `e` ON `a`.`kondisi` = `e`.`id_kondisi`
+		JOIN `mekp_lokasi` `l` ON `a`.`id_lokasi` = `l`.`id_lokasi`
 		WHERE `a`.`id_barang` = $id
 		";
 

@@ -126,6 +126,18 @@
                     </div>
                   </div>
                   <div class="form-group row ml-2">
+                <label for="addPasswordSett" class="col-sm-3 col-form-label">Lokasi Penempatan</label>
+                <div class="col-sm-9">
+                    <select name="l" id="addLokasiPer" class="form-control">
+                      <option for="addLokasiPer" value="">Select Lab</option>
+                      <?php foreach($lokasidata as $lodat) : ?>
+                        <option for="addLokasiPer"  value="<?php echo $lodat['id_lokasi']?>"><?php echo $lodat['nm_lokasi'];?></option>
+                      <?php endforeach; ?>
+                    </select>
+                    <?php echo form_error('l', '<small class="text-danger pl-3">', '</small>');?>
+                  </div>
+                </div>
+                  <div class="form-group row ml-2">
                     <label class="col-sm-3 col-form-label" for="kegiatanAdd">Tanggal Masuk</label>
                     <div class="col-sm-4">
                       <div class="input-group">
@@ -140,12 +152,26 @@
                     </div>
                   </div>
                   <div class="form-group row ml-2">
-                    <label for="addEmailSetting" class="col-sm-3 col-form-label">Asal</label>
+                    <label for="addPasswordSett" class="col-sm-3 col-form-label">Asal</label>
                     <div class="col-sm-9">
-                      <input type="text" name="j" class="form-control" id="addEmailSetting" placeholder="Membeli/Pinjaman/Pemberian dsb" value="<?php echo set_value('j');?>">
+                      <select name="j" id="InputSubMenuMenu" class="form-control">
+                        <option for="InputSubMenuMenu" value="">Select Asal</option>
+                        
+                          <option for="InputSubMenuMenu"  value="Membeli">Membeli</option>
+                          <option for="InputSubMenuMenu"  value="Pinjaman">Pinjaman</option>
+                          <option for="InputSubMenuMenu"  value="Pemberian">Pemberian</option>
+                        
+                      </select>
                       <?php echo form_error('j', '<small class="text-danger pl-3">', '</small>');?>
                     </div>
                   </div>
+                  <!-- <div class="form-group row ml-2">
+                    <label for="addEmailSetting" class="col-sm-3 col-form-label">Asal</label>
+                    <div class="col-sm-9">
+                      <input type="text" name="j" class="form-control" id="addEmailSetting" placeholder="Membeli/Pinjaman/Pemberian dsb" value="<?php echo set_value('j');?>">
+                      <php echo form_error('j', '<small class="text-danger pl-3">', '</small>');?>
+                    </div>
+                  </div> -->
                   <div class="form-group row ml-2">
                     <label for="addEmailSetting" class="col-sm-3 col-form-label">Spesifikasi</label>
                     <div class="col-sm-9">

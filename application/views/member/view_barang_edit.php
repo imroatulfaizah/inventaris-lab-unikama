@@ -123,6 +123,22 @@
                         </div>
                       </div>
                       <div class="form-group row ml-2">
+                      <label for="addPasswordSett" class="col-sm-2 col-form-label">Lokasi</label>
+                      <div class="col-sm-10">
+                        <select name="l" id="InputSubMenuMenu" class="form-control">
+                          <option for="InputSubMenuMenu" value="">Select Lokasi</option>
+                          <?php foreach($lokasidata as $lokdat) : ?>
+                            <?php if($lokdat['id_lokasi'] == $oneba['id_lokasi']) : ?>
+                              <option for="InputSubMenuMenu"  value="<?php echo $lokdat['id_lokasi']?>" selected><?php echo $lokdat['nm_lokasi'];?></option>
+                              <?php else :?>
+                                <option for="InputSubMenuMenu"  value="<?php echo $lokdat['id_lokasi']?>"><?php echo $lokdat['nm_lokasi'];?></option>
+                              <?php endif; ?>
+                            <?php endforeach; ?>
+                          </select>
+                          <?php echo form_error('l', '<small class="text-danger pl-3">', '</small>');?>
+                        </div>
+                      </div>
+                      <div class="form-group row ml-2">
                         <label for="addEmailSetting" class="col-sm-2 col-form-label">Catatan</label>
                         <div class="col-sm-10">
                           <textarea class="form-control" name="i" id="detailUserSettAddress" rows="3" placeholder="Catatan.." value="<?php echo set_value('e');?>"><?php echo $oneba['catatan'];?></textarea>
