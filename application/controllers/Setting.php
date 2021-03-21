@@ -188,7 +188,9 @@ class Setting extends CI_Controller {
 				'email' => htmlspecialchars($email),
 				'image' => 'default.jpg',
 				'password' => password_hash($this->input->post('c'), PASSWORD_DEFAULT),
-				'role_id' => 2,
+				'phone' => $this->input->post('e'),
+				'address' => $this->input->post('f'),
+				'role_id' => $this->input->post('g'),
 				'is_active' => 0,
 				'date_created' => time()
 			];
@@ -218,12 +220,12 @@ class Setting extends CI_Controller {
 
 		$config = [ 
 			'protocol'  => 'smtp',
-			'smtp_host' => 'ssl://smtp.googlemail.com', //gmail
-			'smtp_user' => 'kanggolatian@gmail.com', //email yang buat ngirim
-			'smtp_pass' => 'CunekpanteK12', //pass email yang buat ngirim
+			'smtp_host' => 'ssl://smtp.gmail.com', //gmail
+			'smtp_user' => 'nurjannahintan68@gmail.com', //email yang buat ngirim
+			'smtp_pass' => 'YANILOVE12', //pass email yang buat ngirim
 			'smtp_port' =>  465, //google port
 			'mailtype'  => 'html', //email typenya
-			'charset'   => 'utf-8', //charakternya ditulis carakternya apa
+			'charset'   => 'iso-8859-1', //charakternya ditulis carakternya apa
 			'newline'   => "\r\n"
 
 		];
@@ -232,9 +234,9 @@ class Setting extends CI_Controller {
 		$this->load->library('email',$config);
 
 
-		$this->email->from('kanggolatian@gmail.com', 'Antok Surohmat');
+		$this->email->from('nurjannahintan68@gmail.com', 'Administrator Lab');
 		$this->email->to($this->input->post('bb'));
-
+		// $this->email->to('faizah.alfaza@gmail.com');
 
 		if($type == 'verify'){
 
@@ -415,7 +417,7 @@ class Setting extends CI_Controller {
 		<td class="es-m-txt-l" align="left" style="padding:0;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:lato,  helvetica, arial, sans-serif;line-height:27px;color:#666666;">If you have any questions, just reply to this email—we are always happy to help out.</p></td> 
 		</tr> 
 		<tr style="border-collapse:collapse;"> 
-		<td class="es-m-txt-l" align="left" style="Margin:0;padding-top:20px;padding-left:30px;padding-right:30px;padding-bottom:40px;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:lato,  helvetica, arial, sans-serif;line-height:27px;color:#666666;">Cheers,</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:lato,  helvetica, arial, sans-serif;line-height:27px;color:#666666;">Antok Surohmat</p></td> 
+		<td class="es-m-txt-l" align="left" style="Margin:0;padding-top:20px;padding-left:30px;padding-right:30px;padding-bottom:40px;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:lato,  helvetica, arial, sans-serif;line-height:27px;color:#666666;">Cheers,</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:lato,  helvetica, arial, sans-serif;line-height:27px;color:#666666;">Lab Komputer dan Internet</p></td> 
 		</tr> 
 		</table></td> 
 		</tr> 

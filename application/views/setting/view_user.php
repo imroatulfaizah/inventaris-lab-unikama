@@ -58,7 +58,7 @@
                   <td>
                     <a style="margin-right:10px" href="<?php echo base_url('setting/userdetail/'). $all['id'];?>" title="Detail"><i class="fas fa-book-open text-info"></i></a>
                     <a style="margin-right:10px" href="<?php echo base_url('setting/useredit/'). $all['id'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
-                    <a style="margin-right:10px" href="#" data-toggle="modal" data-target="#userDeleteModal<?php echo $all['id'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
+                    <!-- <a style="margin-right:10px" href="#" data-toggle="modal" data-target="#userDeleteModal<php echo $all['id'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a> -->
                   </td>
                 </tr>
               <?php endforeach; ?>

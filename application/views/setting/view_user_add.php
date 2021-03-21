@@ -42,6 +42,37 @@
               </div>
             </div>
             <div class="form-group row ml-3">
+            <label for="updateUserSettPhone" class="col-sm-2 col-form-label">Phone</label>
+            <div class="col-sm-10">
+              <input type="text" name="e" class="form-control" id="updateUserSettPhone" placeholder="Number Phone">
+            </div>
+          </div>
+          <div class="form-group row ml-3">
+            <label for="updateUserSettAddress" class="col-sm-2 col-form-label">Address</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" name="f" id="updateUserSettAddress" rows="3" placeholder="Addess"></textarea>
+            </div>
+          </div>
+            <div class="form-group row ml-3">
+            <label for="updateUserSettRole" class="col-sm-2 col-form-label">Role</label>
+            <div class="col-sm-10">
+              <select name="g" id="updateUserSettRole" class="form-control select2" style="width: 100%;">
+                <?php
+               $queryRole =  "SELECT *
+               FROM `mekp_role`
+               ";
+               $roleQuery = $this->db->query($queryRole)->result_array(); ?>
+               <?php foreach($roleQuery as $rQ) : ?>
+                <?php if( $userrole['role_id'] ==  $rQ['id'] ) :?>
+                  <option for="updateUserSettRole" value="<?php echo $rQ['id'];?>" selected><?php echo $rQ['access'];?></option>
+                  <?php else : ?>
+                    <option for="updateUserSettRole"  value="<?php echo $rQ['id'];?>" ><?php echo $rQ['access'];?></option>
+                  <?php endif;?>
+                <?php endforeach; ?>
+              </select>
+            </div>
+          </div>
+            <div class="form-group row ml-3">
               <label for="addPasswordSett" class="col-sm-2 col-form-label">Password</label>
               <div class="col-sm-10">
                 <input type="text" name="c" class="form-control" id="addPasswordSett" placeholder="Password">
