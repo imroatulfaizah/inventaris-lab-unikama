@@ -27,10 +27,22 @@
           <form class="form-horizontal" action="<?php echo base_url('member/perawatanAdd')?>" method="post">
             <div class="card-body">
               <?php echo $this->session->flashdata('message'); ?>
-              <div class="form-group row ml-2">
+              <!-- <div class="form-group row ml-2">
                 <label for="addNamaPer" class="col-sm-2 col-form-label">Nama Perawatan </label>
                 <div class="col-sm-4">
                   <input type="text" name="a" class="form-control" id="addNamaPer" placeholder="Nama Perawatan" value="<?php echo set_value('a');?>">
+                  <php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
+                </div>
+              </div> -->
+              <div class="form-group row ml-2">
+                <label for="addPasswordSett" class="col-sm-2 col-form-label">Nama Perawatan</label>
+                <div class="col-sm-4">
+                  <select name="a" id="addLokasiPer" class="form-control">
+                    <option for="addLokasiPer" value="">Select Nama Barang</option>
+                    <?php foreach($barang as $datbar) : ?>
+                      <option for="addLokasiPer"  value="<?php echo $datbar['id_barang']?>"><?php echo $datbar['nm_barang'];?></option>
+                    <?php endforeach; ?>
+                  </select>
                   <?php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
                 </div>
               </div>

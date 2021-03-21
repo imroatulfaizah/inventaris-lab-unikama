@@ -37,7 +37,7 @@
                     <th scope="col">Data</th>
                     <th scope="col">Lokasi</th>
                     <th scope="col">Tanggal</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Action2</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,8 +48,8 @@
                     <td><?php echo $allper['nm_lokasi']; ?></td>
                     <td><?php echo date('d F Y', strtotime($allper['tgl_perawatan'])); ?></td>
                     <td>
-                      <a style="margin-right:10px" href="<?php echo base_url('member/perawatandetail/'). $allper['id_perawatan'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
-                      <a style="margin-right:10px" href="<?php echo base_url('member/perawatanedit/'). $allper['id_perawatan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
+                      <a style="margin-right:10px" href="<?php echo base_url('teknisi/perawatandetail/'). $allper['id_perawatan'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
+                      <a style="margin-right:10px" href="<?php echo base_url('teknisi/perawatanedit/'). $allper['id_perawatan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
                       <a href="#" data-toggle="modal" data-target="#perawatanDeleteModal<?php echo $allper['id_perawatan'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
                     </td>
                   </tr>

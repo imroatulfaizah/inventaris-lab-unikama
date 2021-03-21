@@ -53,8 +53,10 @@ class Member_model extends CI_Model {
 
 	public function getAllPerawatan(){
 
-		$query = "SELECT a.*, b.*  FROM mekp_perawatan a 
-		JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi ORDER BY `id_perawatan`
+		$query = "SELECT a.*, b.*, c.*  FROM mekp_perawatan a 
+		JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi 
+		JOIN mekp_barang c ON a.nm_perawatan = c.id_barang
+		ORDER BY `id_perawatan`
 		";
 
 		return $this->db->query($query)->result_array();
@@ -64,6 +66,7 @@ class Member_model extends CI_Model {
 
 		$query = "SELECT a.*, b.*  FROM mekp_perawatan a 
 		JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi
+		-- JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi
 		WHERE a.id_perawatan = $id
 		";
 

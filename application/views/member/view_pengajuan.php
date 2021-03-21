@@ -21,7 +21,8 @@
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title " text-align="center"><strong><?php echo $title; ?></strong></h4>
+            <h4 class="card-title " text-align="center"><strong><?php echo $title; ?></strong></h4><br>
+            
           </div>
           <div class="card-body">
             <?php echo form_error('a','<div class="alert alert-danger" role="alert">','</div>'); ?>
@@ -50,17 +51,20 @@
                     <td><?php echo date('d F Y', strtotime($allper['tgl_pengajuan'])); ?></td>
                     <?php if($allper['status'] == 'Accepted By Kepala BAU'){ ?>
                       <td style="background-color:cyan"><?php echo $allper['status']; ?></td>
+                      <td>Action Not Available Request (Accepted)</td>
                     <?php } if ($allper['status'] == 'Accepted By Kepala Lab'){ ?>
                       <td style="background-color:#fcf403"><?php echo $allper['status']; ?></td>
+                      <td>Action Not Available Request (Accepted)</td>
                     <?php } if ($allper['status'] == 'New Request'){ ?>
-                      <td style="background-color:#03fcba"><?php echo $allper['status']; ?></td>
-                    <?php } ?>
-                    
-                    <td>
+                      <td style="background-color:#4dff4d"><?php echo $allper['status']; ?></td>
+                      <td>
                       <a style="margin-right:10px" href="<?php echo base_url('member/pengajuandetail/'). $allper['id_pengajuan'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
                       <a style="margin-right:10px" href="<?php echo base_url('member/pengajuanedit/'). $allper['id_pengajuan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
                       <a href="#" data-toggle="modal" data-target="#pengajuanDeleteModal<?php echo $allper['id_pengajuan'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
                     </td>
+                    <?php } ?>
+                    
+                    
                   </tr>
                 <?php endforeach; ?>
               </tbody>

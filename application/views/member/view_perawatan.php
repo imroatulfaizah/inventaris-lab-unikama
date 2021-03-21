@@ -44,7 +44,7 @@
                   <?php $i=0; foreach($allperawatan as $allper) :  $i++;?>
                   <tr>
                     <th scope="row"><?php echo $i ;?></th>
-                    <td><?php echo $allper['nm_perawatan']; ?></td>
+                    <td><?php echo $allper['nm_barang']; ?></td>
                     <td><?php echo $allper['nm_lokasi']; ?></td>
                     <td><?php echo date('d F Y', strtotime($allper['tgl_perawatan'])); ?></td>
                     <td>

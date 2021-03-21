@@ -29,7 +29,7 @@ class Teknisi extends CI_Controller {
 		if($this->form_validation->run() == false){
 
 			$data['title'] = "Data Perawatan Add";
-			$this->template->load('layout/template','member/view_perawatan_add',$data);
+			$this->template->load('layout/template','teknisi/view_perawatan_add',$data);
 
 		}else{
 
@@ -54,14 +54,14 @@ class Teknisi extends CI_Controller {
 
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 
-		$this->load->model('Member_model','perawatan');
+		$this->load->model('Teknisi_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 		$data['oneperawatan'] = $this->perawatan->getOnePerawatan($id);
 		$data['allperbaikan'] = $this->perawatan->getAllPerbaikan($id);
 		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 
 		$data['title'] = "Detail Perawatan";
-		$this->template->load('layout/template','member/view_perawatan_detail',$data);
+		$this->template->load('layout/template','teknisi/view_perawatan_detail',$data);
 	}
 
 	public function inventarisEdit($id){
@@ -70,7 +70,7 @@ class Teknisi extends CI_Controller {
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
 
-		$this->load->model('Member_model','perawatan');
+		$this->load->model('Teknisi_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 		$data['oneperawatan'] = $this->perawatan->getOnePerawatan($id);
 		$data['allperbaikan'] = $this->perawatan->getAllPerbaikan($id);
@@ -84,7 +84,7 @@ class Teknisi extends CI_Controller {
 		if($this->form_validation->run() == false){
 
 			$data['title'] = "Edit Perawatan";
-			$this->template->load('layout/template','member/view_perawatan_edit',$data);
+			$this->template->load('layout/template','teknisi/view_perawatan_edit',$data);
 		}else{
 
 			$data = [
@@ -100,7 +100,7 @@ class Teknisi extends CI_Controller {
 			$this->db->where('id_perawatan', $this->input->post('zz'));
 			$this->db->update('mekp_perawatan',$data);
 			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data updated!</div>');
-			redirect('member/perawatan');
+			redirect('teknisi/perawatan');
 		}
 	}
 
@@ -115,11 +115,11 @@ class Teknisi extends CI_Controller {
 
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 
-		$this->load->model('Member_model','perawatan');
+		$this->load->model('Teknisi_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 
 		$data['title'] = "Data Perawatan";
-		$this->template->load('layout/template','member/view_perawatan',$data);
+		$this->template->load('layout/template','teknisi/view_perawatan',$data);
 	}
 
 	public function perawatanAdd(){
@@ -136,7 +136,7 @@ class Teknisi extends CI_Controller {
 		if($this->form_validation->run() == false){
 
 			$data['title'] = "Data Perawatan Add";
-			$this->template->load('layout/template','member/view_perawatan_add',$data);
+			$this->template->load('layout/template','teknisi/view_perawatan_add',$data);
 
 		}else{
 
@@ -152,7 +152,7 @@ class Teknisi extends CI_Controller {
 
 			$this->db->insert('mekp_perawatan',$data);
 			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">New Data added!</div>');
-			redirect('member/perawatan');
+			redirect('teknisi/perawatan');
 		}
 	}
 
@@ -161,14 +161,14 @@ class Teknisi extends CI_Controller {
 
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 
-		$this->load->model('Member_model','perawatan');
+		$this->load->model('Teknisi_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 		$data['oneperawatan'] = $this->perawatan->getOnePerawatan($id);
 		$data['allperbaikan'] = $this->perawatan->getAllPerbaikan($id);
 		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 
 		$data['title'] = "Detail Perawatan";
-		$this->template->load('layout/template','member/view_perawatan_detail',$data);
+		$this->template->load('layout/template','teknisi/view_perawatan_detail',$data);
 	}
 
 	public function perawatanEdit($id){
@@ -177,7 +177,7 @@ class Teknisi extends CI_Controller {
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
 
-		$this->load->model('Member_model','perawatan');
+		$this->load->model('Teknisi_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 		$data['oneperawatan'] = $this->perawatan->getOnePerawatan($id);
 		$data['allperbaikan'] = $this->perawatan->getAllPerbaikan($id);
@@ -191,7 +191,7 @@ class Teknisi extends CI_Controller {
 		if($this->form_validation->run() == false){
 
 			$data['title'] = "Edit Perawatan";
-			$this->template->load('layout/template','member/view_perawatan_edit',$data);
+			$this->template->load('layout/template','teknisi/view_perawatan_edit',$data);
 		}else{
 
 			$data = [
@@ -207,13 +207,13 @@ class Teknisi extends CI_Controller {
 			$this->db->where('id_perawatan', $this->input->post('zz'));
 			$this->db->update('mekp_perawatan',$data);
 			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data updated!</div>');
-			redirect('member/perawatan');
+			redirect('teknisi/perawatan');
 		}
 	}
 
 	public function perawatandelete($id){
 		$this->db->delete('mekp_perawatan',['id_perawatan' => $id]);
 		$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data deleted!</div>');
-		redirect('member/perawatan');
+		redirect('teknisi/perawatan');
 	}
 }

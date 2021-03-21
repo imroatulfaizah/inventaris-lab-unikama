@@ -41,13 +41,13 @@
               <form role="form" action="<?php echo base_url('member/laporan')?>" method="post">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Tabel</label>
+                    <label for="exampleInputEmail1">Laporan</label>
                     <select name="a" class="form-control">
-                      <option value="">-- Pilih Tabel --</option>
-                      <option value="mekp_barang_masuk">Tabel Barang Masuk</option>
-                      <option value="mekp_barang_keluar">Tabel Barang Keluar</option>
-                      <option value="mekp_perawatan">Tabel Perawatan</option>
-                      <option value="mekp_perbaikan">Tabel Perbaikan</option>
+                      <option value="">-- Pilih Jenis Laporan --</option>
+                      <option value="mekp_barang_masuk">Laporan Barang Masuk</option>
+                      <option value="mekp_barang_keluar">Laporan Barang Keluar</option>
+                      <option value="mekp_perawatan">Laporan Perawatan</option>
+                      <option value="mekp_perbaikan">Laporan Perbaikan</option>
                     </select>
                     <?php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
                   </div>

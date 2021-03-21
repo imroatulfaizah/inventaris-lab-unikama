@@ -700,6 +700,7 @@ class Member extends CI_Controller {
 		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
 
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 
 		$this->form_validation->set_rules('a', 'Nama Perawatan','required|trim');
 		$this->form_validation->set_rules('b', 'Lokasi','required');
