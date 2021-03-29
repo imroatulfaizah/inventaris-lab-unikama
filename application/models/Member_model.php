@@ -129,4 +129,16 @@ class Member_model extends CI_Model {
     	return $this->db->query($query)->result_array();
     }
 
+	//mutasi
+	public function getAllMutasi(){
+
+		$query = "SELECT a.*, d.nm_lokasi as lokasi_awal, b.*, c.nm_lokasi as lokasi_akhir FROM `mekp_mutasi` `a`
+		JOIN `mekp_barang` `b` ON `a`.`id_barang` = `b`.`id_barang`
+		JOIN `mekp_lokasi` `c` ON `b`.id_lokasi = `c`.`id_lokasi`
+        JOIN `mekp_lokasi` `d` ON `a`.lokasi_rinci = `d`.`id_lokasi`
+	
+		";
+
+		return $this->db->query($query)->result_array();
+	}
 }

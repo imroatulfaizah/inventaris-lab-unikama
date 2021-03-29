@@ -684,6 +684,82 @@ class Member extends CI_Controller {
 		redirect('member/master');
 	}
 
+	public function barangPindah($id){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+		
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+
+		$data['merk'] = "Data merk";
+		$data['merkdata'] = $this->db->get('mekp_merk')->result_array();
+		$data['kategori'] = "Data kategori";
+		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
+		$data['kondisi'] = "Data kondisi";
+		$data['kondisidata'] = $this->db->get('mekp_kondisi')->result_array();
+		$data['status'] = "Data status";
+		$data['statusdata'] = $this->db->get('mekp_status_barang')->result_array();
+
+		$this->load->model('Member_model','barang');
+		$data['allba'] = $this->barang->getAllBarang();
+		$data['oneba'] = $this->barang->getOneBarang($id);
+
+		$this->form_validation->set_rules('a', 'Kode Barang','required|trim');
+		$this->form_validation->set_rules('b', 'Nama Barang','required|trim');
+		// $this->form_validation->set_rules('c', 'Merk','required|trim');
+		// $this->form_validation->set_rules('d', 'Kategori','required');
+		// $this->form_validation->set_rules('e', 'Kondisi','required|trim');
+		// $this->form_validation->set_rules('f', 'Status','required');
+		$this->form_validation->set_rules('l', 'Lokasi','required');
+		// $this->form_validation->set_rules('g', 'Jumlah','required');
+		// $this->form_validation->set_rules('h', 'Tahun Pengadaan','required|trim');
+
+
+		if($this->form_validation->run() == false){
+
+			$data['title'] = "Pindah Barang";
+			$this->template->load('layout/template','member/view_pindah',$data);
+
+		}else{
+
+			
+			 //$query = "select id_lokasi from mekp_barang where id_barang = $id";
+			 //$this->db->query($query)->result_array();
+			//$query = $this->db->get_where('mekp_barang',19)->result_array();
+			$datas = $this->barang->getOneBarang($id);
+			//var_dump($datas);
+			$data_mutasi = [
+				'id_barang' => $id,
+				'lokasi_rinci' => $datas['id_lokasi'],
+				'alasan_pindah' => $this->input->post('i'),
+				'tanggal_mutasi' => date("Y/m/d")
+			];
+
+			
+			$this->db->insert('mekp_mutasi',$data_mutasi);
+
+			$data = [
+
+				'kd_barang' => ucfirst($this->input->post('a')),
+				'nm_barang' => $this->input->post('b'),
+				// 'merk' => $this->input->post('c'),
+				// 'kategori' => $this->input->post('d'),
+				// 'kondisi' => $this->input->post('e'),
+				// 'status' => $this->input->post('f'),
+				'id_lokasi' => $this->input->post('l')
+				// 'jumlah' => $this->input->post('g'),
+				// 'thn_pengadaan' => $this->input->post('h'),
+				// 'catatan' => $this->input->post('i')
+
+			];
+			$this->db->where('id_barang', $this->input->post('zz'));
+			$this->db->update('mekp_barang',$data);
+
+			
+			
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Barang updated!</div>');
+			redirect('member/master');
+		}
+	}
+
 	public function perawatan(){
 		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
 
@@ -1182,6 +1258,115 @@ class Member extends CI_Controller {
 			// redirect('member/laporan');
 
 		}
+	}
+
+	//mutasi
+	public function mutasi(){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+
+		$this->load->model('Member_model','mutasi');
+		$data['allmutasi'] = $this->mutasi->getAllMutasi();
+
+		$data['title'] = "Data mutasi";
+		$this->template->load('layout/template','member/view_mutasi',$data);
+	}
+
+	public function mutasiAdd(){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+		$data['barang'] = $this->db->get('mekp_barang')->result_array();
+
+		$this->form_validation->set_rules('a', 'Nama mutasi','required|trim');
+		$this->form_validation->set_rules('b', 'Lokasi','required');
+		$this->form_validation->set_rules('c', 'Lokasi Rinci','required');
+		$this->form_validation->set_rules('d', 'Tanggal mutasi','required');
+
+
+		if($this->form_validation->run() == false){
+
+			$data['title'] = "Data mutasi Add";
+			$this->template->load('layout/template','member/view_mutasi_add',$data);
+
+		}else{
+
+			$data = [
+
+				'nm_mutasi' => $this->input->post('a'),
+				'lokasi' => $this->input->post('b'),
+				'lokasi_rinci' => $this->input->post('c'),
+				'tgl_mutasi' => $this->input->post('d'),
+				'keterangan' => $this->input->post('e')
+
+			];
+
+			$this->db->insert('mekp_mutasi',$data);
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">New Data added!</div>');
+			redirect('member/mutasi');
+		}
+	}
+
+	public function mutasiDetail($id){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+
+		$this->load->model('Member_model','mutasi');
+		$data['allmutasi'] = $this->mutasi->getAllmutasi();
+		$data['onemutasi'] = $this->mutasi->getOnemutasi($id);
+		$data['allperbaikan'] = $this->mutasi->getAllPerbaikan($id);
+		$data['barang'] = $this->db->get('mekp_barang')->result_array();
+
+		$data['title'] = "Detail mutasi";
+		$this->template->load('layout/template','member/view_mutasi_detail',$data);
+	}
+
+	public function mutasiEdit($id){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
+
+		$this->load->model('Member_model','mutasi');
+		$data['allmutasi'] = $this->mutasi->getAllmutasi();
+		$data['onemutasi'] = $this->mutasi->getOnemutasi($id);
+		$data['allperbaikan'] = $this->mutasi->getAllPerbaikan($id);
+		$data['barang'] = $this->db->get('mekp_barang')->result_array();
+
+		$this->form_validation->set_rules('a', 'Nama mutasi','required|trim');
+		$this->form_validation->set_rules('b', 'Lokasi','required');
+		$this->form_validation->set_rules('c', 'Lokasi Rinci','required');
+		$this->form_validation->set_rules('d', 'Tanggal','required');
+
+		if($this->form_validation->run() == false){
+
+			$data['title'] = "Edit mutasi";
+			$this->template->load('layout/template','member/view_mutasi_edit',$data);
+		}else{
+
+			$data = [
+
+				'nm_mutasi' => $this->input->post('a'),
+				'lokasi' => $this->input->post('b'),
+				'lokasi_rinci' => $this->input->post('c'),
+				'tgl_mutasi' => $this->input->post('d'),
+				'keterangan' => $this->input->post('e')
+
+			];
+
+			$this->db->where('id_mutasi', $this->input->post('zz'));
+			$this->db->update('mekp_mutasi',$data);
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data updated!</div>');
+			redirect('member/mutasi');
+		}
+	}
+
+	public function mutasidelete($id){
+		$this->db->delete('mekp_mutasi',['id_mutasi' => $id]);
+		$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data deleted!</div>');
+		redirect('member/mutasi');
 	}
 
 }

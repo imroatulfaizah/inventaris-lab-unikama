@@ -269,7 +269,7 @@
             <th>Barang</th>
             <th>Merk</th>
             <th>Jumlah</th>
-            <th style="width: 100px">Action</th>
+            <th style="width: 120px">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -283,6 +283,7 @@
               <a style="margin-right:10px" href="<?php echo base_url('member/baranghistoryMasuk/'). $lb['kd_barang'];?>" title="History"><i class="fas fa-history text-secondary"></i></a>
               <a style="margin-right:10px" href="<?php echo base_url('member/barangdetail/'). $lb['id_barang'];?>" title="Detail"><i class="fas fa-book-open text-info"></i></a>
               <a style="margin-right:10px" href="<?php echo base_url('member/barangedit/'). $lb['id_barang'];?>" title="Edit"><i class="fas fa-edit text-warning"></i></a>
+              <a style="margin-right:10px" href="<?php echo base_url('member/barangpindah/'). $lb['id_barang'];?>" title="Pindah"><i class="fas fa-book text-cancel"></i></a>
               <a href="#" data-toggle="modal" data-target="#barangDeleteModal<?php echo $lb['id_barang'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
             </td>
           </tr>
