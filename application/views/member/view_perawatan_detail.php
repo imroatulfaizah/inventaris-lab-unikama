@@ -46,9 +46,9 @@
                     <div class="card-body">
                       <form class="form-horizontal" action="<?php echo base_url('member/perawatanEdit/').$oneperawatan['id_perawatan'];?>" method="post">
                         <div class="form-group row ml-2">
-                          <label for="addNamaPer" class="col-sm-2 col-form-label">Nama Perawatan </label>
+                          <label for="addNamaPer" class="col-sm-2 col-form-label">Nama Barang </label>
                           <div class="col-sm-4">
-                            <input type="text" name="a" class="form-control" id="addNamaPer" placeholder="Nama Perawatan" value="<?php echo $oneperawatan['nm_perawatan'];?>" disabled>
+                            <input type="text" name="a" class="form-control" id="addNamaPer" placeholder="Nama Perawatan" value="<?php echo $oneperawatan['nm_barang'];?>" disabled>
                             <?php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
                           </div>
                         </div>
