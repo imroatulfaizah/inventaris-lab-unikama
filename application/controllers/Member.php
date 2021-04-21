@@ -72,7 +72,8 @@ class Member extends CI_Controller {
 				'phone' => $this->input->post('d'),
 				'address' => $this->input->post('e')
 			];
-
+			// var_dump($upload_image);
+			// die();
 			$this->db->where('id', $this->input->post('b'));
 			$this->db->update('mekp_user',$data);
 			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Profile updated!</div>');
@@ -1279,30 +1280,40 @@ class Member extends CI_Controller {
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 
-		$this->form_validation->set_rules('a', 'Nama mutasi','required|trim');
-		$this->form_validation->set_rules('b', 'Lokasi','required');
-		$this->form_validation->set_rules('c', 'Lokasi Rinci','required');
-		$this->form_validation->set_rules('d', 'Tanggal mutasi','required');
+		// $this->form_validation->set_rules('a', 'Kode Barang','required|trim');
+		$this->form_validation->set_rules('b', 'Nama Barang','required|trim');
+		$this->form_validation->set_rules('d', 'Lokasi','required');
+		$this->form_validation->set_rules('e', 'Alasan Pindah','required');
 
+		$this->load->model('Member_model','barang');
 
 		if($this->form_validation->run() == false){
 
-			$data['title'] = "Data mutasi Add";
-			$this->template->load('layout/template','member/view_mutasi_add',$data);
+			$data['title'] = "Data Pindah Barang";
+			$this->template->load('layout/template','member/view_pindah',$data);
 
 		}else{
-
+			
+			$idd = $this->input->post('b');
+			$datas = $this->barang->getOneBarang($idd);
 			$data = [
 
-				'nm_mutasi' => $this->input->post('a'),
-				'lokasi' => $this->input->post('b'),
-				'lokasi_rinci' => $this->input->post('c'),
-				'tgl_mutasi' => $this->input->post('d'),
-				'keterangan' => $this->input->post('e')
+				'id_barang' => $this->input->post('b'),
+				'lokasi_rinci' => $this->input->post('d'),
+				'lokasi_awal' => $datas['id_lokasi'],
+				'alasan_pindah' => $this->input->post('e'),
+				'tanggal_mutasi' => $this->input->post('z')
+				// 'tanggal_mutasi' => date("Y/m/d")
 
 			];
 
 			$this->db->insert('mekp_mutasi',$data);
+
+			$datalokasi = [
+				'id_lokasi' => $this->input->post('d')
+			];
+			$this->db->where('id_barang', $this->input->post('b'));
+			$this->db->update('mekp_barang',$datalokasi);
 			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">New Data added!</div>');
 			redirect('member/mutasi');
 		}
@@ -1367,6 +1378,167 @@ class Member extends CI_Controller {
 		$this->db->delete('mekp_mutasi',['id_mutasi' => $id]);
 		$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data deleted!</div>');
 		redirect('member/mutasi');
+	}
+
+	public function peminjaman(){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+
+		$this->load->model('Member_model','peminjaman');
+		$data['allpeminjaman'] = $this->peminjaman->getAllpeminjaman();
+
+		$data['title'] = "Data peminjaman";
+		$this->template->load('layout/template','member/view_peminjaman',$data);
+	}
+
+	public function peminjamanAdd(){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['barang'] = $this->db->get('mekp_barang')->result_array();
+
+		$this->form_validation->set_rules('a', 'Nama peminjam','required|trim');
+		$this->form_validation->set_rules('b', 'Nama Barang','required');
+		$this->form_validation->set_rules('d', 'Tanggal peminjaman','required');
+		$this->form_validation->set_rules('e', 'Bukti File','required');
+
+		if($this->form_validation->run() == false){
+
+			$data['title'] = "Data peminjaman Add";
+			$this->template->load('layout/template','member/view_peminjaman_add',$data);
+
+		}else{
+
+			$upload_image = $_FILES['e']['name'];
+
+			if($upload_image){
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size']     = '5120'; // dalam hitungan kilobyte(kb), aslinya 1mb itu 1024kb
+				$config['upload_path'] = './assets/img/profile/';
+
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('e')){
+
+					$old_image = $data['mekp_peminjaman']['file_peminjaman'];
+
+					if($old_image != 'default.jpg'){
+						unlink(FCPATH . 'assets/img/profile/' . $old_image);
+					}
+					$new_image = $this->upload->data('file_name');
+					$this->db->set('file_peminjaman', $new_image);
+					console.log("tess ya");
+				}else{
+					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+					redirect('peminjaman');
+				}
+			}
+
+			$data = [
+
+				'nama_peminjam' => $this->input->post('a'),
+				'tanggal_peminjaman' => $this->input->post('d'),
+				'file_peminjaman' => $this->input->post('e'),
+				'id_barang' => $this->input->post('b')
+
+			];
+			
+			var_dump($upload_image);
+			die();
+			$this->db->insert('mekp_peminjaman',$data);
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">New Data added!</div>');
+			redirect('member/peminjaman');
+		}
+	}
+
+	public function peminjamanDetail($id){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+
+		$this->load->model('Member_model','peminjaman');
+		$data['allpeminjaman'] = $this->peminjaman->getAllpeminjaman();
+		$data['onepeminjaman'] = $this->peminjaman->getOnepeminjaman($id);
+		$data['allpeminjaman'] = $this->peminjaman->getAllpeminjaman($id);
+		$data['barang'] = $this->db->get('mekp_barang')->result_array();
+
+		$data['title'] = "Detail peminjaman";
+		$this->template->load('layout/template','member/view_peminjaman_detail',$data);
+	}
+
+	public function peminjamanEdit($id){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
+
+		$this->load->model('Member_model','peminjaman');
+		$data['allpeminjaman'] = $this->peminjaman->getAllpeminjaman();
+		$data['onepeminjaman'] = $this->peminjaman->getOnepeminjaman($id);
+		$data['allpeminjaman'] = $this->peminjaman->getAllpeminjaman($id);
+		$data['barang'] = $this->db->get('mekp_barang')->result_array();
+
+		// $this->form_validation->set_rules('aa', 'tanggal Perbaikan','required|trim');
+		// $this->form_validation->set_rules('bb', 'Kode Barang','required|trim');
+		// $this->form_validation->set_rules('cc', 'Jumlah','required');
+		// $this->form_validation->set_rules('xx', 'Lokasi','required');
+		// $this->form_validation->set_rules('dd', 'Kebutuhan Rinci','required');
+
+		if($this->form_validation->run() == false){
+
+			$data['title'] = "Edit peminjaman";
+			$this->template->load('layout/template','member/view_peminjaman_edit',$data);
+		}else{
+
+			$data = [
+
+				'id_peminjaman' => $id,
+				'tgl_peminjaman' => $this->input->post('aa'),
+				'lokasi' => $this->input->post('xx'),
+				'kd_barang' => $this->input->post('bb'),
+				'jumlah' => $this->input->post('cc'),
+				'kebutuhan' => $this->input->post('dd'),
+				'hasil' => $this->input->post('ee')
+
+			];
+
+			$this->db->where('id_peminjaman', $this->input->post('zz'));
+			$this->db->update('mekp_peminjaman',$data);
+
+			$barang = [
+
+				'tgl_keluar' => $this->input->post('aa'),
+				'dari_ke' => $this->input->post('xx'),
+				'kd_barang' => $this->input->post('bb'),
+				'jumlah' => $this->input->post('cc'),
+				'kebutuhan' => $this->input->post('dd'),
+				'catatan' => $this->input->post('ee'),
+				'id_peminjaman' => $this->input->post('zz')
+
+			];
+			$this->db->where('id_peminjaman', $this->input->post('zz'));
+			$this->db->update('mekp_barang_keluar',$barang);
+
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data peminjaman Updated!</div>');
+			redirect('member/peminjamanEdit/'.$id);
+
+		}
+	}
+
+	public function peminjamanDelete($id = 0,$id_peminjaman = 0){
+		$data['user'] = $this->db->get_where('mekp_user',['email' => $this->session->userdata('email')])->row_array();
+		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
+
+		$this->load->model('Member_model','peminjaman');
+		$data['allpeminjaman'] = $this->peminjaman->getAllpeminjaman();
+		$data['onepeminjaman'] = $this->peminjaman->getOnepeminjaman($id);
+		$data['allpeminjaman'] = $this->peminjaman->getAllpeminjaman($id);
+		//$data['barang'] = $this->db->get('mekp_barang')->result_array();
+		$this->db->delete('mekp_peminjaman',['id_peminjaman' => $id_peminjaman]);
+		//$this->db->delete('mekp_barang_keluar',['id_peminjaman' => $id_peminjaman]);
+		$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Data peminjaman deleted!</div>');
+		redirect('member/peminjaman/'.$id);
 	}
 
 }

@@ -5,11 +5,12 @@ class Member_model extends CI_Model {
 
 	public function getAllBarang(){
 
-		$query = "SELECT `a`.`id_barang`,`a`.`kd_barang`,`a`.`nm_barang`, `a`.`jumlah`,`a`.`thn_pengadaan`,`a`.`catatan`, `b`.`nm_merk`,`c`.`nm_kategori`,`d`.`nm_status`,`e`.`nm_kondisi` FROM 
+		$query = "SELECT `a`.`id_barang`,`a`.`kd_barang`,`a`.`nm_barang`, `a`.`jumlah`,`a`.`thn_pengadaan`,`a`.`catatan`, `b`.`nm_merk`,`c`.`nm_kategori`,`d`.`nm_status`,`e`.`nm_kondisi`,`l`.`nm_lokasi` FROM 
 		`mekp_barang` `a` JOIN `mekp_merk` `b` ON `a`.`merk` = `b`.`id_merk` 
 		JOIN `mekp_kategori` `c` ON `a`.`kategori` = `c`.`id_kategori`
 		JOIN `mekp_status_barang` `d` ON `a`.`status` = `d`.`id_status`
 		JOIN `mekp_kondisi` `e` ON `a`.`kondisi` = `e`.`id_kondisi`
+		JOIN `mekp_lokasi` `l` ON `a`.`id_lokasi` = `l`.`id_lokasi`
 		";
 
 		return $this->db->query($query)->result_array();
@@ -31,9 +32,14 @@ class Member_model extends CI_Model {
 
 	public function getHistoryBarangMasuk($kd){
 
-		$query = "SELECT a.* FROM `mekp_barang_masuk` `a`
+		$query = "SELECT a.*, b.*, c.*, d.*, l.*, f.*, e.*, d.* FROM `mekp_barang_masuk` `a`
 		JOIN `mekp_barang` `b`
 		ON `a`.`kd_barang` = `b`.`kd_barang`
+		JOIN `mekp_kategori` `c` ON `b`.`kategori` = `c`.`id_kategori`
+		JOIN `mekp_status_barang` `d` ON `b`.`status` = `d`.`id_status`
+		JOIN `mekp_kondisi` `e` ON `b`.`kondisi` = `e`.`id_kondisi`
+		JOIN `mekp_lokasi` `l` ON `b`.`id_lokasi` = `l`.`id_lokasi`
+		JOIN `mekp_merk` `f` ON `b`.`merk` = `f`.`id_merk`
 		WHERE `a`.`kd_barang` LIKE '%$kd%'
 		";
 
@@ -42,9 +48,13 @@ class Member_model extends CI_Model {
 
 	public function getHistoryBarangKeluar($kd){
 
-		$query = "SELECT a.*, a.catatan as catatana, c.* FROM `mekp_barang_keluar` `a`
+		$query = "SELECT a.*, a.catatan as catatana, c.*, e.*, d.*, g.* FROM `mekp_barang_keluar` `a`
 		JOIN `mekp_barang` `b`ON `a`.`kd_barang` = `b`.`kd_barang`
 		JOIN mekp_lokasi c ON a.dari_ke = c.id_lokasi
+		JOIN `mekp_kategori` `g` ON `b`.`kategori` = `g`.`id_kategori`
+		JOIN `mekp_status_barang` `d` ON `b`.`status` = `d`.`id_status`
+		JOIN `mekp_kondisi` `e` ON `b`.`kondisi` = `e`.`id_kondisi`
+		JOIN `mekp_merk` `f` ON `b`.`merk` = `f`.`id_merk`
 		WHERE `a`.`kd_barang` LIKE '%$kd%'
 		";
 
@@ -132,13 +142,33 @@ class Member_model extends CI_Model {
 	//mutasi
 	public function getAllMutasi(){
 
-		$query = "SELECT a.*, d.nm_lokasi as lokasi_awal, b.*, c.nm_lokasi as lokasi_akhir FROM `mekp_mutasi` `a`
+		$query = "SELECT a.*, c.nm_lokasi as lokasi_awal, b.*, d.nm_lokasi as lokasi_akhir FROM `mekp_mutasi` `a`
 		JOIN `mekp_barang` `b` ON `a`.`id_barang` = `b`.`id_barang`
-		JOIN `mekp_lokasi` `c` ON `b`.id_lokasi = `c`.`id_lokasi`
+		JOIN `mekp_lokasi` `c` ON `a`.lokasi_awal = `c`.`id_lokasi`
         JOIN `mekp_lokasi` `d` ON `a`.lokasi_rinci = `d`.`id_lokasi`
 	
 		";
 
 		return $this->db->query($query)->result_array();
+	}
+
+	//peminjaman
+	public function getAllPeminjaman(){
+
+		$query = "SELECT a.*, b.nm_barang  FROM mekp_peminjaman a 
+		JOIN mekp_barang b ON a.id_barang = b.id_barang ORDER BY `id_peminjaman`
+		";
+
+		return $this->db->query($query)->result_array();
+	}
+
+	public function getOnePeminjaman($id){
+
+		$query = "SELECT a.*, b.*  FROM mekp_peminjaman a 
+		JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi
+		WHERE a.id_peminjaman = $id
+		";
+
+		return $this->db->query($query)->row_array();
 	}
 }

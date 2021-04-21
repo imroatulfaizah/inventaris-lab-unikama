@@ -28,38 +28,33 @@
             <?php echo form_error('a','<div class="alert alert-danger" role="alert">','</div>'); ?>
             <?php echo $this->session->flashdata('message'); ?>
             <div>
-              <a class="btn btn-sm btn-outline-info float-right" href="<?php echo base_url('member/mutasiAdd')?>">
-                <i class="fas fa-plus"></i> Pindah Barang
+              <a class="btn btn-sm btn-outline-info float-right" href="<?php echo base_url('member/peminjamanAdd')?>">
+                <i class="fas fa-plus"></i> Add Data
               </a>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Nama Peminjam</th>
+                    <th scope="col">Nama Barang</th>
                     <th scope="col">Tanggal</th>
-                    <th scope="col">Kode Barang</th>
-                    <th scope="col">Lokasi Awal</th>
-                    <th scope="col">Lokasi Pindahan</th>
-                    <th scope="col">Alasan Pindah</th>
-                    <!-- <th scope="col">Action</th> -->
+                    <th scope="col">Surat Peminjaman</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $i=0; foreach($allmutasi as $allper) :  $i++; {?>
+                  <?php $i=0; foreach($allpeminjaman as $allper) :  $i++;?>
                   <tr>
                     <th scope="row"><?php echo $i ;?></th>
-                    <td><?php echo $allper['tanggal_mutasi']; ?></td>
+                    <td><?php echo $allper['nama_peminjam']; ?></td>
                     <td><?php echo $allper['nm_barang']; ?></td>
-                    <td><?php echo $allper['lokasi_awal']; ?></td>
-                    <td><?php echo $allper['lokasi_akhir']; ?></td>
-                    <td><?php echo $allper['alasan_pindah']; ?></td>
-                      <!-- <td>
-                      <a style="margin-right:10px" href="<php echo base_url('member/pengajuandetail/'). $allper['id_mutasi'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
-                      <a style="margin-right:10px" href="<php echo base_url('member/pengajuanedit/'). $allper['id_mutasi'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
-                      <a href="#" data-toggle="modal" data-target="#pengajuanDeleteModal<php echo $allper['id_mutasi'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
-                    </td> -->
-                    <?php } ?>
-                    
-                    
+                    <td><?php echo date('d F Y', strtotime($allper['tanggal_peminjaman'])); ?></td>
+                    <td><?php echo $allper['file_peminjaman']; ?></td>
+                    <td>
+                      <a style="margin-right:10px" href="<?php echo base_url('member/peminjamandetail/'). $allper['id_peminjaman'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
+                      <a style="margin-right:10px" href="<?php echo base_url('member/peminjamanedit/'). $allper['id_peminjaman'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
+                      <a href="#" data-toggle="modal" data-target="#peminjamanDeleteModal<?php echo $allper['id_peminjaman'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
+                    </td>    
                   </tr>
                 <?php endforeach; ?>
               </tbody>
@@ -74,22 +69,22 @@
     <!-- /.container-fluid -->
 
     <!-- Barang Hapus Modal-->
-    <?php $i=0; foreach($allmutasi as $allper) : $i++; ?>
-    <div class="modal fade" id="pengajuanDeleteModal<?php echo $allper['id_mutasi'];?>">
+    <?php $i=0; foreach($allpeminjaman as $allper) : $i++; ?>
+    <div class="modal fade" id="peminjamanDeleteModal<?php echo $allper['id_peminjaman'];?>">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header btn-danger">
-            <h5 class="modal-title">Hapus <?php echo $allper['nm_pengajuan'];?> </h5>
+            <h5 class="modal-title">Hapus <?php echo $allper['nm_peminjaman'];?> </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>Pilih "Hapus" dibawah untuk menghapus Pengajuan <?php echo $allper['nm_pengajuan'];?>.</p>
+            <p>Pilih "Hapus" dibawah untuk menghapus peminjaman <?php echo $allper['nm_peminjaman'];?>.</p>
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            <a class="btn btn-danger" href="<?php echo base_url('member/pengajuanDelete/')?><?php echo $allper['id_mutasi'];?>">Hapus</a>
+            <a class="btn btn-danger" href="<?php echo base_url('member/peminjamanDelete/')?><?php echo $allper['id_peminjaman'];?>">Hapus</a>
           </div>
         </div>
         <!-- /.modal-content -->

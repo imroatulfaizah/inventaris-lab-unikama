@@ -73,8 +73,12 @@
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
+                    <th>Kode Barang</th>
                     <th>Barang</th>
+                    <th>Merk</th>
+                    <th>Lokasi</th>
                     <th>Tanggal Masuk</th>
+                    <th>Kondisi</th>
                     <th>Asal</th>
                     <th>Jumlah</th>
                     <th style="width: 100px">Action</th>
@@ -83,9 +87,13 @@
                 <tbody>
                   <?php $i=0; foreach($allhisbama as $ahbm) :  $i++;?>
                   <tr>
-                    <th scope="row"><?php echo $i ;?></th>
+                    <th scope="row"><?php echo $i ;?></th>  
                     <td><?php echo $ahbm['kd_barang']; ?></td>
+                    <td><?php echo $ahbm['nm_barang']; ?></td>
+                    <td><?php echo $ahbm['nm_merk']; ?></td>
+                    <td><?php echo $ahbm['nm_lokasi']; ?></td>
                     <td><?php echo date('d F Y', strtotime($ahbm['tgl_masuk'])) ;?></td>
+                    <td><?php echo $ahbm['nm_kondisi']; ?></td>
                     <td><?php echo $ahbm['dari_ke'] ;?></td>
                     <td><?php echo $ahbm['jumlah']; ?></td>
                     <td>
@@ -104,8 +112,13 @@
               <thead>
                 <tr>
                   <th style="width: 10px">#</th>
+                  <th>Kode Barang</th>
                   <th>Barang</th>
+                  <th>Merk</th>
+                  <th>Lokasi</th>
                   <th>Tanggal Keluar</th>
+                  <th>Kondisi</th>
+                  <th>Asal</th>
                   <th>Untuk</th>
                   <th>Jumlah</th>
                   <th style="width: 100px">Action</th>
@@ -115,10 +128,15 @@
                 <?php $i=0; foreach($allhisbake as $ahbk) :  $i++;?>
                 <tr>
                   <th scope="row"><?php echo $i ;?></th>
-                  <td><?php echo $ahbk['kd_barang']; ?></td>
+                  <td><?php echo $ahbm['kd_barang']; ?></td>
+                  <td><?php echo $ahbm['nm_barang']; ?></td>
+                  <td><?php echo $ahbm['nm_merk']; ?></td>
+                  <td><?php echo $ahbm['nm_lokasi']; ?></td>
                   <td><?php echo date('d F Y', strtotime($ahbk['tgl_keluar'])); ?></td>
+                  <td><?php echo $ahbm['nm_kondisi']; ?></td>
+                  <td><?php echo $ahbm['dari_ke'] ;?></td>
                   <td><?php echo $ahbk['nm_lokasi']; ?></td>
-                  <td><?php echo $ahbk['jumlah']; ?></td>
+                  <td><?php echo $ahbm['jumlah']; ?></td>
                   <td>
                     <a style="margin-right:10px" href="#"  data-toggle="modal" data-target="#DetailModalKe<?php echo $ahbk['id_barang_keluar'];?>" title="Detail"><i class="fas fa-book-open text-info"></i></a>
                     <a style="margin-right:10px" href="#" data-toggle="modal" data-target="#EditModalKe<?php echo $ahbk['id_barang_keluar'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>

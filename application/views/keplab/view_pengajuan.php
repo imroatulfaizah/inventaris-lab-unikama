@@ -50,7 +50,7 @@
                     <?php } if ($allper['status'] == 'Accepted By Kepala Lab'){ ?>
                       <td style="background-color:#fcf403"><?php echo $allper['status']; ?></td>
                     <?php } if ($allper['status'] == 'New Request'){ ?>
-                      <td style="background-color:#03fcba"><?php echo $allper['status']; ?></td>
+                      <td style="background-color:#4dff4d"><?php echo $allper['status']; ?></td>
                     <?php } ?>
                     <td>
                       <a style="margin-right:10px" href="<?php echo base_url('keplab/pengajuandetail/'). $allper['id_pengajuan'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>

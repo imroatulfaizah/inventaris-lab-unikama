@@ -266,8 +266,12 @@
         <thead>
           <tr>
             <th style="width: 10px">#</th>
+            <th>Kode Barang</th>
             <th>Barang</th>
             <th>Merk</th>
+            <th>Lokasi</th>
+            <th>Tahun Pengadaan</th>
+            <th>Kondisi</th>
             <th>Jumlah</th>
             <th style="width: 120px">Action</th>
           </tr>
@@ -276,8 +280,12 @@
           <?php $i=0; foreach($allba as $lb) :  $i++;?>
           <tr>
             <th scope="row"><?php echo $i ;?></th>
+            <td><?php echo $lb['kd_barang']; ?></td>
             <td><?php echo $lb['nm_barang']; ?></td>
             <td><?php echo $lb['nm_merk']; ?></td>
+            <td><?php echo $lb['nm_lokasi']; ?></td>
+            <td><?php echo $lb['thn_pengadaan']; ?></td>
+            <td><?php echo $lb['nm_kondisi']; ?></td>
             <td><?php echo $lb['jumlah']; ?></td>
             <td>
               <a style="margin-right:10px" href="<?php echo base_url('member/baranghistoryMasuk/'). $lb['kd_barang'];?>" title="History"><i class="fas fa-history text-secondary"></i></a>
