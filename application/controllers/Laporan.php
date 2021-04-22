@@ -25,6 +25,7 @@ class Laporan extends CI_Controller {
 		$data['barangkeluar'] = "Data Barang Keluar";
 		$data['perawatan'] = "Data Perawatan";
 		$data['perbaikan'] = "Data Perbaikan";
+		$data['mutasi'] = "Data Mutasi";
 		//menampilkan lokasi
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 		//menampilkan nama perawatan
@@ -35,6 +36,7 @@ class Laporan extends CI_Controller {
 		// $data['allba'] = $this->barang->getAllBarang();
 		//menampilkan nama barang 
 		$data['allperbaikan'] = $this->db->get('mekp_perbaikan')->result_array();
+		$data['allmutasi'] = $this->db->get('mekp_mutasi')->result_array();
 
 
 		$this->form_validation->set_rules('aa', 'Pilih Tabel','required');
@@ -64,7 +66,13 @@ class Laporan extends CI_Controller {
 			}elseif ($tabel == 'mekp_perbaikan') {
 				$tgl = 'tgl_perbaikan';
 				$name = 'Data Perbaikan';
+			}elseif ($tabel == 'mekp_mutasi') {
+				$tgl = 'tanggal_mutasi';
+				$name = 'Data Mutasi';
 			};
+
+			echo $tgl;
+			die();
 
 			$queryLaporan = "SELECT * FROM $tabel WHERE ($tgl BETWEEN '$awal' AND '$akhir')";
 			// $row = $query->result_array();
@@ -146,6 +154,9 @@ class Laporan extends CI_Controller {
 			}elseif ($tabel == 'mekp_perbaikan') {
 				$tgl = 'tgl_perbaikan';
 				$name = 'Data Perbaikan';
+			}elseif ($tabel == 'mekp_mutasi') {
+				$tgl = 'tanggal_mutasi';
+				$name = 'Data Mutasi';
 			};
 
 			$queryLaporan = "SELECT * FROM $tabel WHERE ($tgl BETWEEN '$awal' AND '$akhir')";
@@ -561,6 +572,94 @@ class Laporan extends CI_Controller {
 				$excel->getActiveSheet()->getColumnDimension('F')->setWidth(25);
 				$excel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
 				$excel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
+
+			}
+			elseif ($tabel == 'mekp_mutasi') {
+				// Set kolom A3 dengan tulisan "NO"
+				$excel->setActiveSheetIndex(0)->setCellValue('A4', "NO"); 
+    			// Set kolom B4 dengan tulisan "NAMA PERAWATAN"
+				$excel->setActiveSheetIndex(0)->setCellValue('B4', "NAMA BARANG"); 
+    			// Set kolom C4 dengan tulisan "TANGGAL PERBAIKAN"
+				$excel->setActiveSheetIndex(0)->setCellValue('C4', "LOKASI AWAL"); 
+    			// Set kolom D4 dengan tulisan "LOKASI"
+				$excel->setActiveSheetIndex(0)->setCellValue('D4', "LOKASI AKHIR"); 
+    			// Set kolom E4 dengan tulisan "KEBUTUHAN"
+				$excel->setActiveSheetIndex(0)->setCellValue('E4', "ALASAN PINDAH");
+    			// Set kolom F4 dengan tulisan "KODE BARANG"
+				$excel->setActiveSheetIndex(0)->setCellValue('F4', "KODE BARANG");
+    			// Set kolom G4 dengan tulisan "JUMLAH"
+				$excel->setActiveSheetIndex(0)->setCellValue('G4', "TANGGAL MUTASI");
+    			// Set kolom H4 dengan tulisan "HASIL"
+				// $excel->setActiveSheetIndex(0)->setCellValue('H4', "HASIL");
+
+    			// Apply style header yang telah kita buat tadi ke masing-masing kolom header
+				$excel->getActiveSheet()->getStyle('A4')->applyFromArray($style_col);
+				$excel->getActiveSheet()->getStyle('B4')->applyFromArray($style_col);
+				$excel->getActiveSheet()->getStyle('C4')->applyFromArray($style_col);
+				$excel->getActiveSheet()->getStyle('D4')->applyFromArray($style_col);
+				$excel->getActiveSheet()->getStyle('E4')->applyFromArray($style_col);
+				$excel->getActiveSheet()->getStyle('F4')->applyFromArray($style_col);
+				$excel->getActiveSheet()->getStyle('G4')->applyFromArray($style_col);
+				// $excel->getActiveSheet()->getStyle('H4')->applyFromArray($style_col);
+
+    			// Panggil function alllaporan untuk menampilkan semua data
+				$data['alllaporan'] = $this->db->query($queryLaporan)->result_array();
+				//menampilkan nama barang 
+				$data['allbarang'] = $this->db->get('mekp_barang')->result_array();
+				//menampilkan lokasi
+				$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
+				//menampilkan nama perawatan
+				$data['allperawatan'] = $this->db->get('mekp_perawatan')->result_array();
+				$data['allmutasi'] = $this->db->get('mekp_mutasi')->result_array();
+				$no = 1; // Untuk penomoran tabel, di awal set dengan 1
+    			$numrow = 5; // Set baris pertama untuk isi tabel adalah baris ke 5
+
+    			foreach ($data['alllaporan'] as $all) :
+    				$excel->setActiveSheetIndex(0)->setCellValue('A'.$numrow, $no);
+
+    				foreach ($data['allmutasi'] as $perawatan) :
+    					if ($mutasi['id_mutasi'] == $all['id_mutasi']) :
+    						$excel->setActiveSheetIndex(0)->setCellValue('B'.$numrow, $mutasi['id_mutasi']);
+    					endif;
+    				endforeach;
+    				
+    				$excel->setActiveSheetIndex(0)->setCellValue('C'.$numrow, date('d F Y', strtotime($all['id_barang'])));
+
+    				foreach ($data['lokasidata'] as $lokasi) :
+    					if ($lokasi['id_lokasi'] == $all['lokasi']) :
+    						$excel->setActiveSheetIndex(0)->setCellValue('D'.$numrow, $lokasi['lokasi_rinci']);
+    					endif;
+    				endforeach;
+
+    				$excel->setActiveSheetIndex(0)->setCellValue('E'.$numrow, $all['lokasi_awal']);
+    				$excel->setActiveSheetIndex(0)->setCellValue('F'.$numrow, $all['alasan_pindah']);
+    				$excel->setActiveSheetIndex(0)->setCellValue('G'.$numrow, $all['tanggal_mutasi']);
+    				// $excel->setActiveSheetIndex(0)->setCellValue('H'.$numrow, $all['hasil']);
+
+				    // Apply style row yang telah kita buat tadi ke masing-masing baris (isi tabel)
+    				$excel->getActiveSheet()->getStyle('A'.$numrow)->applyFromArray($style_row);
+    				$excel->getActiveSheet()->getStyle('B'.$numrow)->applyFromArray($style_row);
+    				$excel->getActiveSheet()->getStyle('C'.$numrow)->applyFromArray($style_row);
+    				$excel->getActiveSheet()->getStyle('D'.$numrow)->applyFromArray($style_row);
+    				$excel->getActiveSheet()->getStyle('E'.$numrow)->applyFromArray($style_row);
+    				$excel->getActiveSheet()->getStyle('F'.$numrow)->applyFromArray($style_row);
+    				$excel->getActiveSheet()->getStyle('G'.$numrow)->applyFromArray($style_row);
+    				// $excel->getActiveSheet()->getStyle('H'.$numrow)->applyFromArray($style_row);
+
+				    $no++; // Tambah 1 setiap kali looping
+				    $numrow++; // Tambah 1 setiap kali looping
+
+				endforeach;
+
+    			// Set width kolom
+				$excel->getActiveSheet()->getColumnDimension('A')->setWidth(5); 
+				$excel->getActiveSheet()->getColumnDimension('B')->setWidth(25); 
+				$excel->getActiveSheet()->getColumnDimension('C')->setWidth(25);
+				$excel->getActiveSheet()->getColumnDimension('D')->setWidth(20); 
+				$excel->getActiveSheet()->getColumnDimension('E')->setWidth(25);
+				$excel->getActiveSheet()->getColumnDimension('F')->setWidth(25);
+				$excel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+				// $excel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
 
 			};
 
