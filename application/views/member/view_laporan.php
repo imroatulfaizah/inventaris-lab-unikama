@@ -48,6 +48,7 @@
                       <option value="mekp_barang_keluar">Laporan Barang Keluar</option>
                       <option value="mekp_perawatan">Laporan Perawatan</option>
                       <option value="mekp_perbaikan">Laporan Perbaikan</option>
+                      <option value="mekp_perbaikan">Laporan Mutasi Pindah Barang</option>
                     </select>
                     <?php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
                   </div>

@@ -1024,6 +1024,7 @@ class Member extends CI_Controller {
 		$this->form_validation->set_rules('xx', 'Lokasi','required');
 		$this->form_validation->set_rules('cc', 'Jumlah','required');
 		$this->form_validation->set_rules('dd', 'Kebutuhan Rinci','required');
+		$this->form_validation->set_rules('j', 'Status','required');
 
 
 		if($this->form_validation->run() == false){
@@ -1040,7 +1041,8 @@ class Member extends CI_Controller {
 				'kd_barang' => $this->input->post('bb'),
 				'jumlah' => $this->input->post('cc'),
 				'kebutuhan' => $this->input->post('dd'),
-				'hasil' => $this->input->post('ee')
+				'hasil' => $this->input->post('ee'),
+				'status' => $this->input->post('j')
 
 			];
 

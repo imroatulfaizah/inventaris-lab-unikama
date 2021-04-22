@@ -245,7 +245,22 @@
               <textarea class="form-control" name="ee" id="detailUserSettAddress" rows="2" placeholder="Hasil.."><?php echo set_value('ee');?></textarea>
             </div>
           </div>
+          <div class="form-group row">
+          <label for="addPasswordSett" class="col-sm-4 col-form-label">Status</label>
+          <div class="col-sm-8">
+            <select name="j" id="InputSubMenuMenu" class="form-control">
+              <option for="InputSubMenuMenu" value="">Select Status</option>
+              
+                <option for="InputSubMenuMenu"  value="Sudah Diperbaiki">Sudah Diperbaiki</option>
+                <option for="InputSubMenuMenu"  value="Sedang Perbaikan">Sedang Perbaikan</option>
+                <option for="InputSubMenuMenu"  value="Dalam Antrian">Dalam Antrian</option>
+              
+            </select>
+            <?php echo form_error('j', '<small class="text-danger pl-3">', '</small>');?>
+          </div>
         </div>
+        </div>
+        
         <div class="modal-footer justify-content-between">
           <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-warning btn-sm"><span aria-hidden="true">Tutup</span></button>
           <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>&ensp;Add</button>
