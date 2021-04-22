@@ -130,7 +130,10 @@
                             <tr>
                               <th scope="col" style="text-align: center;">#</th>
                               <th scope="col" style="text-align: center;">Tanggal Perbaikan</th>
+                              <th scope="col" style="text-align: center;">Nama Barang</th>
                               <th scope="col" style="text-align: center;">Kebutuhan</th>
+                              <th scope="col" style="text-align: center;">Hasil</th>
+                              <th scope="col" style="text-align: center;">Status</th>
                               <th scope="col" style="text-align: center; width: 100px;">Action</th>
                             </tr>
                           </thead>
@@ -139,7 +142,21 @@
                             <tr>
                               <th scope="row"><?php echo $i ;?></th>
                               <td><?php echo date('d F Y', strtotime($allper['tgl_perbaikan'])); ?></td>
-                              <td><?php echo $allper['kebutuhan']; ?></td>
+                              <td><?php echo $allper['nm_barang']; ?></td>
+                              <td><?php echo $allper['kebutuhan']; ?></td> 
+                              <td><?php echo $allper['hasil']; ?></td>       
+                              <?php if($allper['status'] == 'Dalam Antrian'){ ?>
+                                <td style="background-color:cyan"><?php echo $allper['status']; ?></td>
+                              <?php } if ($allper['status'] == 'Sedang Perbaikan'){ ?>
+                                <td style="background-color:#fcf403"><?php echo $allper['status']; ?></td>
+                              <?php } if ($allper['status'] == 'Sudah Diperbaiki'){ ?>
+                                <td style="background-color:#4dff4d"><?php echo $allper['status']; ?></td>
+                                <td>
+                                <a style="margin-right:10px" href="<?php echo base_url('member/pengajuandetail/'). $allper['id_pengajuan'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
+                                <a style="margin-right:10px" href="<?php echo base_url('member/pengajuanedit/'). $allper['id_pengajuan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
+                                <a href="#" data-toggle="modal" data-target="#pengajuanDeleteModal<?php echo $allper['id_pengajuan'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
+                              </td>
+                              <?php } ?>
                               <td>
                                 <a style="margin-right: 10px" href="#" data-toggle="modal" data-target="#perbaikanDetailModal<?php echo $allper['id_perbaikan'];?>" title="Detail"><i class="fas fa-book-open text-info"></i></a>
                                 <a style="margin-right:10px" href="#" data-toggle="modal" data-target="#perbaikanEditModal<?php echo $allper['id_perbaikan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
@@ -326,6 +343,13 @@
               </div>
             </div>
             <div class="form-group row">
+              <label for="addNamaPer" class="col-sm-4 col-form-label">Nama Barang</label>
+              <div class="col-sm-8">
+                <input type="text" name="a" class="form-control" id="addNamaPer" placeholder="Nama Barang" value="<?php echo $allper['nm_barang'];?>" disabled>
+                <?php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
+              </div>
+            </div>
+            <div class="form-group row">
               <label for="detKategoriPer" class="col-sm-4 col-form-label">Jumlah</label>
               <div class="col-sm-8">
                 <input type="text" name="b" class="form-control" id="detKategoriPer" placeholder="Jumlah" value="<?php echo $allper['jumlah'];?>" disabled>
@@ -344,6 +368,13 @@
               <div class="col-sm-8">
                 <textarea class="form-control" name="f" id="detailUserSettAddress" rows="2" placeholder="Hasil.." value="<?php echo $allper['hasil'];?>" disabled><?php echo $allper['hasil'];?></textarea>
                 <?php echo form_error('f', '<small class="text-danger pl-3">', '</small>');?>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="addNamaPer" class="col-sm-4 col-form-label">Status </label>
+              <div class="col-sm-8">
+                <textarea class="form-control" name="g" id="detailUserSettAddress" rows="2" placeholder="Status.." value="<?php echo $allper['status'];?>" disabled><?php echo $allper['status'];?></textarea>
+                <?php echo form_error('g', '<small class="text-danger pl-3">', '</small>');?>
               </div>
             </div>
             <!-- /.card-body -->

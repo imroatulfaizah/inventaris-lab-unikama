@@ -106,9 +106,15 @@ class Member_model extends CI_Model {
 
 	public function getAllPerbaikan($id){
 
-		$query = "SELECT * FROM `mekp_perbaikan`
-		inner JOIN mekp_perawatan  ON mekp_perbaikan.id_perawatan = mekp_perawatan.id_perawatan
-		WHERE `mekp_perbaikan`.`id_perawatan` = $id ORDER BY `id_perbaikan`
+		// $query = "SELECT * FROM `mekp_perbaikan`
+		// inner JOIN mekp_perawatan  ON mekp_perbaikan.id_perawatan = mekp_perawatan.id_perawatan
+		// WHERE `mekp_perbaikan`.`id_perawatan` = $id ORDER BY `id_perbaikan`
+		// ";
+		$query = "SELECT a.*, b.*, c.nm_barang  FROM mekp_perbaikan a 
+		JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi
+		JOIN mekp_barang c ON a.kd_barang = c.kd_barang
+		JOIN mekp_perawatan d ON a.id_perawatan = d.id_perawatan
+		WHERE a.id_perawatan = $id ORDER BY `id_perbaikan`
 		";
 
 		return $this->db->query($query)->result_array();
