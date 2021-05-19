@@ -49,7 +49,10 @@
                     <td><?php echo $allper['nama_peminjam']; ?></td>
                     <td><?php echo $allper['nm_barang']; ?></td>
                     <td><?php echo date('d F Y', strtotime($allper['tanggal_peminjaman'])); ?></td>
-                    <td><?php echo $allper['file_peminjaman']; ?></td>
+                    <td>
+                    <a href="../assets/img/profile/<?php echo $allper['file_peminjaman']; ?>" download><img src="../assets/img/profile/<?php echo $allper['file_peminjaman']; ?>" alt="<?php echo $allper['file_peminjaman']; ?>" height="100" width="100"></a>
+                    </td>
+                    <!-- <td><php echo $allper['file_peminjaman']; ?></td> -->
                     <td>
                       <a style="margin-right:10px" href="<?php echo base_url('member/peminjamandetail/'). $allper['id_peminjaman'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
                       <a style="margin-right:10px" href="<?php echo base_url('member/peminjamanedit/'). $allper['id_peminjaman'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>

@@ -27,29 +27,35 @@
             <?php echo form_error('a','<div class="alert alert-danger" role="alert">','</div>'); ?>
             <?php echo $this->session->flashdata('message'); ?>
             <div>
-              <a class="btn btn-sm btn-outline-info float-right" href="<?php echo base_url('member/perawatanAdd')?>">
+            <!-- <a class="btn btn-sm btn-outline-info float-right" href="<php echo base_url('member/perawatanAdd')?>">
                 <i class="fas fa-plus"></i> Add Data
-              </a>
+              </a> -->
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Data</th>
+                    <th scope="col">Kode Barang</th>
+                    <th scope="col">Nama Barang</th>
+                    <th scope="col">Kode Perawatan</th>
+                    <th scope="col">Kondisi</th>
                     <th scope="col">Lokasi</th>
                     <th scope="col">Tanggal</th>
-                    <th scope="col">Action2</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php $i=0; foreach($allperawatan as $allper) :  $i++;?>
                   <tr>
                     <th scope="row"><?php echo $i ;?></th>
-                    <td><?php echo $allper['nm_perawatan']; ?></td>
+                    <td><?php echo $allper['kd_barang']; ?></td>
+                    <td><?php echo $allper['nm_barang']; ?></td>
+                    <td><?php echo $allper['id_perawatan']; ?></td>
+                    <td><?php echo $allper['nm_kondisi']; ?></td>
                     <td><?php echo $allper['nm_lokasi']; ?></td>
                     <td><?php echo date('d F Y', strtotime($allper['tgl_perawatan'])); ?></td>
                     <td>
-                      <a style="margin-right:10px" href="<?php echo base_url('teknisi/perawatandetail/'). $allper['id_perawatan'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
-                      <a style="margin-right:10px" href="<?php echo base_url('teknisi/perawatanedit/'). $allper['id_perawatan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
+                      <a style="margin-right:10px" href="<?php echo base_url('member/perawatandetail/'). $allper['id_perawatan'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
+                      <a style="margin-right:10px" href="<?php echo base_url('member/perawatanedit/'). $allper['id_perawatan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
                       <a href="#" data-toggle="modal" data-target="#perawatanDeleteModal<?php echo $allper['id_perawatan'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
                     </td>
                   </tr>

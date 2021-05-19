@@ -1404,16 +1404,17 @@ class Member extends CI_Controller {
 		$data['barang'] = $this->db->get('mekp_barang')->result_array();
 
 		$this->form_validation->set_rules('a', 'Nama peminjam','required|trim');
-		$this->form_validation->set_rules('b', 'Nama Barang','required');
 		$this->form_validation->set_rules('d', 'Tanggal peminjaman','required');
-		$this->form_validation->set_rules('e', 'Bukti File','required');
+		$this->form_validation->set_rules('b', 'Nama Barang','required');	
+		//$this->form_validation->set_rules('b', 'Bukti File','required');
 
 		if($this->form_validation->run() == false){
+			
 			$data['title'] = "Data peminjaman Add";
 			$this->template->load('layout/template','member/view_peminjaman_add',$data);
 
 		}else{
-			echo "tes";
+			
 			$upload_image = $_FILES['e']['name'];
 			if($upload_image){
 				$config['allowed_types'] = 'gif|jpg|png';
@@ -1424,14 +1425,14 @@ class Member extends CI_Controller {
 
 				if($this->upload->do_upload('e')){
 
-					$old_image = $data['mekp_peminjaman']['file_peminjaman'];
+					//$old_image = $data['mekp_peminjaman']['file_peminjaman'];
 
-					if($old_image != 'default.jpg'){
-						unlink(FCPATH . 'assets/img/profile/' . $old_image);
-					}
+					// if($old_image != 'default.jpg'){
+					// 	unlink(FCPATH . 'assets/img/profile/' . $old_image);
+					// }
 					$new_image = $this->upload->data('file_name');
 					$this->db->set('file_peminjaman', $new_image);
-					console.log("tess ya");
+					
 				}else{
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
 					redirect('peminjaman');
@@ -1442,7 +1443,7 @@ class Member extends CI_Controller {
 
 				'nama_peminjam' => $this->input->post('a'),
 				'tanggal_peminjaman' => $this->input->post('d'),
-				'file_peminjaman' => $this->input->post('e'),
+				//'file_peminjaman' => $this->input->post('e'),
 				'id_barang' => $this->input->post('b')
 
 			];
