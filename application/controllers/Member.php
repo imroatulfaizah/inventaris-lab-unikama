@@ -1078,7 +1078,7 @@ class Member extends CI_Controller {
 
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 		$data['kategoridata'] = $this->db->get('mekp_kategori')->result_array();
-
+		
 		$this->load->model('Member_model','perawatan');
 		$data['allperawatan'] = $this->perawatan->getAllPerawatan();
 		$data['oneperawatan'] = $this->perawatan->getOnePerawatan($id);
@@ -1105,7 +1105,8 @@ class Member extends CI_Controller {
 				'kd_barang' => $this->input->post('bb'),
 				'jumlah' => $this->input->post('cc'),
 				'kebutuhan' => $this->input->post('dd'),
-				'hasil' => $this->input->post('ee')
+				'hasil' => $this->input->post('ee'),
+				'status' => $this->input->post('xx')
 
 			];
 
@@ -1157,6 +1158,7 @@ class Member extends CI_Controller {
 		$data['barangkeluar'] = "Data Barang Keluar";
 		$data['perawatan'] = "Data Perawatan";
 		$data['perbaikan'] = "Data Perbaikan";
+		$data['mutasi'] = "Data Mutasi";
 		//menampilkan lokasi
 		$data['lokasidata'] = $this->db->get('mekp_lokasi')->result_array();
 		//menampilkan nama perawatan
@@ -1169,7 +1171,7 @@ class Member extends CI_Controller {
 		$data['allpengajuan'] = $this->db->get('mekp_pengajuan')->result_array();
 		//menampilkan perbaikan
 		$data['allperbaikan'] = $this->db->get('mekp_perbaikan')->result_array();
-
+		$data['allmutasi'] = $this->db->get('mekp_mutasi')->result_array();
 
 		$this->form_validation->set_rules('a', 'Pilih Tabel','required');
 		$this->form_validation->set_rules('b', 'Awal Periode','required');
@@ -1194,6 +1196,8 @@ class Member extends CI_Controller {
 				$tgl = 'tgl_perawatan';
 			}elseif ($tabel == 'mekp_perbaikan') {
 				$tgl = 'tgl_perbaikan';
+			}elseif ($tabel == 'mekp_mutasi') {
+				$tgl = 'tanggal_mutasi';
 			};
 
 			$queryLaporan = "SELECT * FROM $tabel WHERE ($tgl BETWEEN '$awal' AND '$akhir')";
@@ -1405,14 +1409,12 @@ class Member extends CI_Controller {
 		$this->form_validation->set_rules('e', 'Bukti File','required');
 
 		if($this->form_validation->run() == false){
-
 			$data['title'] = "Data peminjaman Add";
 			$this->template->load('layout/template','member/view_peminjaman_add',$data);
 
 		}else{
-
+			echo "tes";
 			$upload_image = $_FILES['e']['name'];
-
 			if($upload_image){
 				$config['allowed_types'] = 'gif|jpg|png';
 				$config['max_size']     = '5120'; // dalam hitungan kilobyte(kb), aslinya 1mb itu 1024kb
@@ -1444,9 +1446,6 @@ class Member extends CI_Controller {
 				'id_barang' => $this->input->post('b')
 
 			];
-			
-			var_dump($upload_image);
-			die();
 			$this->db->insert('mekp_peminjaman',$data);
 			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">New Data added!</div>');
 			redirect('member/peminjaman');

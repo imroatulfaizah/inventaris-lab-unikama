@@ -73,7 +73,7 @@
               <!-- /.card-body -->
               <div class="card-footer justify-content-between">
                 <a class="btn btn-info btn-sm" href="<?php echo base_url('member/pengajuan');?>">
-                  <i class="fas fa-arrow-left"></i>&ensp;Back To Pengajuan List
+                  <i class="fas fa-arrow-left"></i>&ensp;Back To Peminjaman List
                 </a>
                 <button type="submit" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i>&ensp;Add Data</button>
               </div>

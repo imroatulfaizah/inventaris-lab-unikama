@@ -75,7 +75,7 @@ class Member_model extends CI_Model {
 
 	public function getOnePerawatan($id){
 
-		$query = "SELECT a.*, b.*, c.*  FROM mekp_perawatan a 
+		$query = "SELECT a.*, b.*, c.nm_barang FROM mekp_perawatan a 
 		JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi
 		JOIN mekp_barang c ON a.nm_perawatan = c.id_barang
 		-- JOIN mekp_lokasi b ON a.lokasi = b.id_lokasi

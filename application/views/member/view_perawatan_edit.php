@@ -52,7 +52,7 @@
                         <div class="form-group row ml-2">
                           <label for="addNamaPer" class="col-sm-2 col-form-label">Nama Perawatan </label>
                           <div class="col-sm-4">
-                            <input type="text" name="a" class="form-control" id="addNamaPer" placeholder="Nama Perawatan" value="<?php echo $oneperawatan['nm_perawatan'];?>">
+                            <input type="text" name="a" class="form-control" id="addNamaPer" placeholder="Nama Perawatan" value="<?php echo $oneperawatan['nm_barang'];?>">
                             <?php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
                           </div>
                         </div>
@@ -147,21 +147,25 @@
                               <td><?php echo $allper['hasil']; ?></td>       
                               <?php if($allper['status'] == 'Dalam Antrian'){ ?>
                                 <td style="background-color:cyan"><?php echo $allper['status']; ?></td>
-                              <?php } if ($allper['status'] == 'Sedang Perbaikan'){ ?>
-                                <td style="background-color:#fcf403"><?php echo $allper['status']; ?></td>
-                              <?php } if ($allper['status'] == 'Sudah Diperbaiki'){ ?>
-                                <td style="background-color:#4dff4d"><?php echo $allper['status']; ?></td>
                                 <td>
-                                <a style="margin-right:10px" href="<?php echo base_url('member/pengajuandetail/'). $allper['id_pengajuan'];?>"  title="Detail"><i class="fas fa-book-open text-info"></i></a>
-                                <a style="margin-right:10px" href="<?php echo base_url('member/pengajuanedit/'). $allper['id_pengajuan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
-                                <a href="#" data-toggle="modal" data-target="#pengajuanDeleteModal<?php echo $allper['id_pengajuan'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
-                              </td>
-                              <?php } ?>
-                              <td>
                                 <a style="margin-right: 10px" href="#" data-toggle="modal" data-target="#perbaikanDetailModal<?php echo $allper['id_perbaikan'];?>" title="Detail"><i class="fas fa-book-open text-info"></i></a>
                                 <a style="margin-right:10px" href="#" data-toggle="modal" data-target="#perbaikanEditModal<?php echo $allper['id_perbaikan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
                                 <a style="margin-right:10px" href="#" data-toggle="modal" data-target="#perbaikanDeleteModal<?php echo $allper['id_perbaikan'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
                               </td>
+                              <?php } if ($allper['status'] == 'Sedang Perbaikan'){ ?>
+                                <td style="background-color:#fcf403"><?php echo $allper['status']; ?></td>
+                                <td>
+                                <a style="margin-right: 10px" href="#" data-toggle="modal" data-target="#perbaikanDetailModal<?php echo $allper['id_perbaikan'];?>" title="Detail"><i class="fas fa-book-open text-info"></i></a>
+                                <a style="margin-right:10px" href="#" data-toggle="modal" data-target="#perbaikanEditModal<?php echo $allper['id_perbaikan'];?>" title="Edit"><i class="fas fa-edit text-secondary"></i></a>
+                                <a style="margin-right:10px" href="#" data-toggle="modal" data-target="#perbaikanDeleteModal<?php echo $allper['id_perbaikan'];?>" title="Delete"><i class="fas fa-trash text-danger"></i></a>
+                              </td>
+                              <?php } if ($allper['status'] == 'Sudah Diperbaiki'){ ?>
+                                <td style="background-color:#4dff4d"><?php echo $allper['status']; ?></td>
+                                <td>
+                                <a style="margin-right: 10px" href="#" data-toggle="modal" data-target="#perbaikanDetailModal<?php echo $allper['id_perbaikan'];?>" title="Detail"><i class="fas fa-book-open text-info"></i></a>
+                              </td>
+                              <?php } ?>
+                             
                             </tr>
                           <?php endforeach; ?>
                         </tbody>
@@ -465,6 +469,19 @@
                 <textarea class="form-control" name="ee" id="detailUserSettAddress" rows="2" placeholder="Hasil.." value="<?php echo $allper['hasil'];?>"><?php echo $allper['hasil'];?></textarea>
               </div>
             </div>
+            <div class="form-group row">
+              <label for="addNamaPer" class="col-sm-4 col-form-label">Status</label>
+              <div class="col-sm-8">
+                <select name="xx" id="AddKategoriPer" class="form-control" >
+                  
+                    <option for="InputSubMenuMenu"  value="Sudah Diperbaiki">Sudah Diperbaiki</option>
+                    <option for="InputSubMenuMenu"  value="Sedang Perbaikan">Sedang Perbaikan</option>
+                    <option for="InputSubMenuMenu"  value="Dalam Antrian" selected>Dalam Antrian</option>
+                    
+                </select>
+                 <?php echo form_error('xx', '<small class="text-danger pl-3">', '</small>');?>
+               </div>
+             </div>
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-secondary btn-sm"><span aria-hidden="true">Close</span></button>

@@ -48,7 +48,7 @@
                       <option value="mekp_barang_keluar">Laporan Barang Keluar</option>
                       <option value="mekp_perawatan">Laporan Perawatan</option>
                       <option value="mekp_perbaikan">Laporan Perbaikan</option>
-                      <option value="mekp_perbaikan">Laporan Mutasi Pindah Barang</option>
+                      <option value="mekp_mutasi">Laporan Mutasi Pindah Barang</option>
                     </select>
                     <?php echo form_error('a', '<small class="text-danger pl-3">', '</small>');?>
                   </div>
@@ -395,6 +395,82 @@
       </div>
       <!-- /.card -->';
 
+
+      break;
+
+      case 'mekp_mutasi':
+
+        $out = '            
+        <!-- Default box -->
+        <div class="card">
+        <div class="card-header border-0 bg-gray">
+        <h3 class="card-title mt-2">
+        <i class="fas fa-th mr-1"></i>';
+        $out .= $mutasi;
+        $out .= '</h3>
+        <div class="btn-group float-right">
+        <div class="row">
+        <form action="'. base_url('laporan').'" method="post" target="blank" >
+        <input type="hidden" readonly value="mekp_mutasi" name="aa" class="form-control"  >
+        <input type="hidden" readonly value ="'.set_value('b').'" name="bb" class="form-control" >
+        <input type="hidden" readonly value="'.set_value('c').'" name="cc" class="form-control" >
+        <button type="submit" class="btn btn-sm btn-danger float-right"><i class="fas fa-file-pdf"></i>&ensp;Export Pdf</button>
+        </form>
+        &ensp;
+        <form action="'. base_url('laporan/excel').'" method="post" >
+        <input type="hidden" readonly value="mekp_mutasi" name="aa" class="form-control" >
+        <input type="hidden" readonly value ="'.set_value('b').'" name="bb" class="form-control" >
+        <input type="hidden" readonly value ="'.set_value('c').'" name="cc" class="form-control" >
+        <button type="submit" class="btn btn-sm btn-success float-right"><i class="fas fa-file-excel"></i>&ensp;Export Excel</button>
+        </form>
+        </div>
+        </div>
+        </div>
+        <div class="card-body">
+        <div>
+        <table id="example1" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nama Barang</th>
+        <th scope="col">Lokasi Rinci</th>
+        <th scope="col">Lokasi Awal</th>
+        <th scope="col">Alasan Pindah</th>
+        <th scope="col">Tanggal Mutasi</th>
+        <th scope="col">Jumlah</th>
+        <th scope="col">Hasil</th>
+        </tr>
+        </thead>
+        <tbody>';
+
+        $i=0; foreach($alllaporan as $lap): $i++;
+        $out.='<tr>';
+        $out .='<th scope="row">' .$i.'</th>';
+        foreach ($allmutasi as $allper) :
+          if ($allper['id_mutasi'] == $lap['id_mutasi']) : 
+            $out .= '<td>'.$allper['id_mutasi'].'</td>';
+          endif;
+        endforeach;
+        $out .= '<td>'. date('d F Y', strtotime($lap['tanggal_mutasi'])).'</td>';
+        foreach ($lokasidata as $lodat) :
+          if ($lodat['id_lokasi'] == $lap['lokasi_rinci']) : 
+            $out .= '<td>'.$lodat['nm_lokasi'].'</td>';
+          endif;
+        endforeach;
+        $out .= '<td>'.$lap['lokasi_awal'].'</td>';
+        $out .= '<td>'.$lap['alasan_pindah'].'</td>';
+        $out .= '<td>'.$lap['id_mutasi'].'</td>';
+        $out .= '<td>'.$lap['id_barang'].'</td>';               
+        $out.='</tr>';
+      endforeach;
+      $out .= '</tbody>
+      </table>
+      </div>
+      <!-- /.row -->
+      </div>
+      <!-- /.card-body -->
+      </div>
+      <!-- /.card -->';
 
       break;
 
